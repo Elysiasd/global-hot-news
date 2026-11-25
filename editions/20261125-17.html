@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="600">
+  <meta name="color-scheme" content="light dark">
+  <title>整点电讯 · 2026-11-25 17:00 版</title>
+  <style>
+    :root {
+      --bg: #f3efe4;
+      --paper: #faf6eb;
+      --ink: #161410;
+      --ink-soft: #5a554b;
+      --rule: #c9c1b0;
+      --rule-strong: #161410;
+      --flash: #9b1c1c;
+      --flash-bg: #9b1c1c;
+      --flash-ink: #fff8f0;
+      --heat: #b54512;
+      --chip: transparent;
+      --shadow: none;
+    }
+    html[data-theme="dark"] {
+      --bg: #10100e;
+      --paper: #171714;
+      --ink: #ece6d8;
+      --ink-soft: #b3ab9c;
+      --rule: #3a372f;
+      --rule-strong: #ece6d8;
+      --flash: #e07a6a;
+      --flash-bg: #8a2420;
+      --flash-ink: #fff6ee;
+      --heat: #e0a15a;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Palatino Linotype", Palatino, "Iowan Old Style", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    a { color: inherit; }
+    button { font: inherit; color: inherit; }
+    .wrap { width: min(860px, calc(100% - 32px)); margin: 0 auto; }
+    .mono, .kicker, .edition, .meta-line, .stamp, .cat, .heat, .src, .tab, .sort, .theme-btn, .flash-label, .watch-btn, footer.site, .archive-link {
+      font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Courier New", monospace;
+    }
+    header.mast {
+      padding: 28px 0 16px;
+      border-bottom: 3px solid var(--rule-strong);
+      margin-bottom: 0;
+    }
+    .mast-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .kicker {
+      letter-spacing: 0.28em;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-weight: 700;
+      font-size: clamp(36px, 8vw, 58px);
+      line-height: 1;
+      letter-spacing: 0.18em;
+      margin: 0;
+    }
+    .edition {
+      margin-top: 10px;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .edition strong { font-weight: 700; }
+    .meta-line {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      color: var(--ink-soft);
+      font-size: 12px;
+    }
+    .meta-line strong { color: var(--ink); font-weight: 650; }
+    .countdown { font-variant-numeric: tabular-nums; }
+    .theme-btn, .archive-link {
+      border: 1px solid var(--rule);
+      background: transparent;
+      border-radius: 0;
+      padding: 7px 12px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+    }
+    .theme-btn:hover, .archive-link:hover { border-color: var(--ink); }
+    .mast-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .flash {
+      background: var(--flash-bg);
+      color: var(--flash-ink);
+      padding: 14px 16px 12px;
+      margin: 16px 0 0;
+    }
+    .flash-label {
+      margin: 0 0 8px;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      font-weight: 700;
+    }
+    .flash ol { margin: 0; padding: 0; list-style: none; }
+    .flash li + li { border-top: 1px solid rgba(255,255,255,0.22); margin-top: 8px; padding-top: 8px; }
+    .flash a { display: block; text-decoration: none; color: inherit; }
+    .flash .oh { font-size: 18px; line-height: 1.3; font-weight: 700; }
+    .flash .zh { font-size: 13px; opacity: 0.9; margin-top: 3px; }
+    .flash .bm { font-size: 11px; opacity: 0.8; margin-top: 4px; letter-spacing: 0.02em; }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 16px 0 0;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--rule-strong);
+    }
+    .tabs, .sorts { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tab, .sort {
+      border: 1px solid var(--rule);
+      background: transparent;
+      border-radius: 0;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .tab[aria-selected="true"], .sort[aria-pressed="true"] {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+    .tab .n { margin-left: 4px; opacity: 0.75; }
+    .wire { padding: 0 0 36px; }
+    .dispatch {
+      border-bottom: 1px solid var(--rule);
+      padding: 14px 0 13px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 8px 12px;
+      align-items: start;
+    }
+    .stamp {
+      font-size: 11px;
+      color: var(--ink-soft);
+      font-variant-numeric: tabular-nums;
+      padding-top: 4px;
+      white-space: nowrap;
+    }
+    .body { min-width: 0; }
+    .row-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .cat {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+    }
+    .heat { font-size: 11px; color: var(--heat); letter-spacing: 0.05em; white-space: nowrap; }
+    .oh {
+      font-size: 20px;
+      line-height: 1.3;
+      font-weight: 700;
+      margin: 0;
+    }
+    .oh a { text-decoration: none; }
+    .oh a:hover { text-decoration: underline; }
+    .zh {
+      margin: 4px 0 0;
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+    .sum { margin: 7px 0 0; font-size: 14.5px; }
+    .src { margin: 6px 0 0; font-size: 11px; color: var(--ink-soft); }
+    .watch-btn {
+      border: 1px solid var(--rule);
+      background: transparent;
+      width: 28px; height: 28px;
+      padding: 0;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 26px;
+      text-align: center;
+    }
+    .watch-btn[aria-pressed="true"] { border-color: var(--ink); }
+    .empty-hint {
+      padding: 28px 0;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+    footer.site {
+      border-top: 1px solid var(--rule-strong);
+      padding: 16px 0 36px;
+      color: var(--ink-soft);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+    footer.site a { color: var(--ink); }
+    @media (max-width: 640px) {
+      .wrap { width: calc(100% - 24px); }
+      .dispatch { grid-template-columns: 1fr auto; }
+      .stamp { grid-column: 1 / -1; padding-top: 0; }
+      h1 { letter-spacing: 0.12em; }
+      .oh { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="mast">
+      <div class="mast-top">
+        <div>
+          <p class="kicker">Hourly Wire · Asia/Shanghai · UTC+8</p>
+          <h1>整点电讯</h1>
+          <div class="edition"><strong id="edition-label"></strong> · <span id="edition-no"></span></div>
+        </div>
+        <div class="mast-actions">
+          <a class="archive-link" href="index.html">过往版本</a>
+          <a class="archive-link" href="../global-hot-news.html">最新一版</a>
+          <button class="theme-btn" id="theme-toggle" type="button">切换深色模式</button>
+        </div>
+      </div>
+      <div class="meta-line">
+        <span>最后更新 <strong id="updated-label"></strong></span>
+        <span class="countdown">下次自动刷新 <strong id="countdown">10:00</strong></span>
+      </div>
+    </header>
+
+    <section class="flash" id="flash" hidden>
+      <p class="flash-label">FLASH · 重大突发</p>
+      <ol id="flash-list"></ol>
+    </section>
+
+    <div class="toolbar">
+      <div class="tabs" id="tabs" role="tablist" aria-label="新闻分类"></div>
+      <div class="sorts" aria-label="排序">
+        <button class="sort" type="button" data-sort="heat" aria-pressed="true">按热度</button>
+        <button class="sort" type="button" data-sort="time" aria-pressed="false">按时间</button>
+      </div>
+    </div>
+
+    <section class="wire" id="wire" aria-live="polite"></section>
+    <footer class="site">每小时重排一版，标题保留原文并链接出处。中文标题与摘要为编译。热度为编辑主观评估（1–5）。「我的关注」自动收录 OpenAI 与英雄联盟相关新闻，也可点击星标另行加入（仅保存在本机浏览器）。页面每 10 分钟自动刷新。查看<a href="index.html">过往版本</a>。</footer>
+  </div>
+
+  <script id="news-data" type="application/json">
+{
+  "updated": "2026-11-25 17:00 UTC+8",
+  "updated_iso": "2026-11-25T17:00:00+08:00",
+  "timezone": "UTC+8",
+  "refresh_seconds": 600,
+  "stories": [
+    {
+      "id": "asia-stocks-rout",
+      "headline": "亚洲股市暴跌收盘：韩国KOSPI重挫6.16%跌破5000点，台股崩跌1926点",
+      "summary": "受隔夜美股科技股抛售、AI行情可持续性疑虑和美国新关税担忧拖累，韩国KOSPI 25日收跌308.52点（-6.16%）至4697.51点，单日跌破5000点关口，盘中一度触发卖出侧程序交易暂停（sidecar），芯片股领跌（韩联社）。据经济日报，台湾加权指数盘中一度暴跌3440点，收盘跌1926.92点（-4.8%）至38195.43点，台积电跌3.58%、联发科跌停10%。此前海峡时报报道日经225一度跌约3.6%，OpenAI投资方软银重挫。",
+      "category": "其他",
+      "source": "Yonhap News Agency",
+      "url": "https://en.yna.co.kr/view/AEN20261125006200320",
+      "published": "2026-11-25 14:36 UTC+8（收盘）",
+      "published_iso": "2026-11-25T14:36:00+08:00",
+      "time_precision": "datetime",
+      "heat": 5,
+      "breaking": true,
+      "headline_original": "Seoul shares retreat over 6 pct on revived AI uncertainties",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "cartagena-hostages",
+      "headline": "卡塔赫纳超市人质危机结束：特种部队强攻救出全部人质，1名劫匪死亡、4人被捕",
+      "summary": "持续逾16小时的卡塔赫纳Éxito超市人质事件已结束。据Semana和El Espectador，总统德拉埃斯普列利亚设定的投降期限过后，警方与军方特种部队在直升机掩护下使用震撼弹突入，数分钟内控制现场；仍被扣押的19人全部获救（第20名有健康问题的人质此前已获释）。5名劫匪中1人被击毙、4人被捕，另据Semana初步消息至少1名军警人员受伤。事件起因是劫匪抢劫运钞车未遂后挟持约30人。",
+      "category": "社会政治",
+      "source": "Semana",
+      "url": "https://www.semana.com/nacion/cartagena/articulo/exito-de-cartagena-fuerzas-especiales-rescatan-a-secuestrados-y-logran-someter-a-asaltantes/202602/",
+      "published": "2026-11-25 14:31 UTC+8（当地时间01:31，对峙已结束）",
+      "published_iso": "2026-11-25T14:31:00+08:00",
+      "time_precision": "datetime",
+      "heat": 5,
+      "breaking": true,
+      "headline_original": "Éxito de Cartagena: fuerzas especiales rescatan a los secuestrados y logran someter a los asaltantes",
+      "headline_original_verified": true,
+      "lang": "es"
+    },
+    {
+      "id": "hodeidah-strikes",
+      "headline": "沙特联军确认空袭也门荷台达港及北部目标，胡塞武装威胁打击吉达等红海港口",
+      "summary": "沙特领导的联军确认于25日凌晨打击胡塞武装控制的荷台达港“作战能力”，并袭击也门北部靠近沙特边境的两个省份的目标。胡塞军事发言人萨雷亚此前警告，若荷台达遭袭，将把吉达在内的沙特所有红海港口列为目标，并呼吁航运公司撤离船只。此前一天胡塞无人机再袭利雅得最高楼，致11人受伤。目前未见荷台达空袭伤亡报告。",
+      "category": "社会政治",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/liveblog/2026/11/25/iran-war-live-houthis-threaten-saudi-ports-over-coalitions-hodeidah-order",
+      "published": "2026-11-25 14:00 UTC+8（直播页更新）",
+      "published_iso": "2026-11-25T14:00:00+08:00",
+      "time_precision": "datetime",
+      "heat": 5,
+      "breaking": true,
+      "headline_original": "Iran war live: IRGC mocks US ‘strategic ambiguity’ after ‘major setback’",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "t1-2027-announcement",
+      "headline": "T1今晚18:00举办2027赛季发布会，Zeus三年长约回归待官宣",
+      "summary": "T1将于北京时间今晚18:00（韩国时间19:00）在首尔T1 BASE CAMP举办“2027 T1 Announcement”，内容包括新任主教练介绍、“特别活动”和记者会。Sheep Esports创始人Wooloo称T1向Zeus开出“条件极其优厚”的三年合同，官宣很快发布；韩国《国民日报》已将Zeus回归、T1组成Zeus–Oner–Faker–Peyz–Keria阵容视为本次转会窗的最大赢家。截至本次更新T1尚未正式官宣Zeus签约。",
+      "category": "游戏",
+      "source": "直播吧（援引Sheep Esports）",
+      "url": "https://news.zhibo8.com/game/2026-11-25/6b0661ba9bec3native.htm",
+      "published": "2026-11-25 12:19 UTC+8",
+      "published_iso": "2026-11-25T12:19:47+08:00",
+      "time_precision": "datetime",
+      "heat": 5,
+      "breaking": false,
+      "focus": "英雄联盟",
+      "headline_original": "外媒透露Zeus回归T1幕后：HLE想留，但T1开出了三年长约",
+      "headline_original_verified": true,
+      "lang": "zh-Hans"
+    },
+    {
+      "id": "shenzhou-24",
+      "headline": "神舟二十四号已与天宫完成自主快速交会对接",
+      "summary": "中国载人航天工程办公室宣布，神舟二十四号于北京时间11月25日11时56分成功对接于空间站天和核心舱前向端口，整个自主快速交会对接过程约3.5小时。按任务计划，航天员汤洪波、武毅和巴基斯坦航天员穆罕默德·泽山·阿里随后将进入天和核心舱；神舟二十三号乘组已做好迎接准备。",
+      "category": "理工科",
+      "source": "Xinhua",
+      "url": "https://www.news.cn/20261125/1b798e77784340ebb180e06eb8c3de09/c.html",
+      "published": "2026-11-25 12:05 UTC+8",
+      "published_iso": "2026-11-25T12:05:05+08:00",
+      "time_precision": "datetime",
+      "heat": 5,
+      "breaking": true,
+      "headline_original": "神舟二十四号载人飞船与空间站组合体完成自主快速交会对接",
+      "headline_original_verified": true,
+      "lang": "zh-Hans"
+    },
+    {
+      "id": "openai-matmul-9-4",
+      "headline": "OpenAI发布预印本称矩阵乘法指数ω恰为9/4，补上匹配下界",
+      "summary": "OpenAI在其openai/math仓库发布11月24日版论文《The matrix multiplication exponent is nine fourths》，声称证明了任意域上方阵乘法指数恰为9/4（2.25）：在10月给出上界9/4之后，此次给出匹配的下界，并附部分Lean形式化（覆盖无除法电路）。若经独立验证，这将是理论计算机科学的重大结果；目前仍属OpenAI自发布的预印本，尚待同行审查。",
+      "category": "理工科",
+      "source": "OpenAI (GitHub openai/math)",
+      "url": "https://github.com/openai/math/tree/main/preprints/The-matrix-multiplication-exponent-is-nine-fourths-November-24-2026",
+      "published": "2026-11-25 08:04 UTC+8",
+      "published_iso": "2026-11-25T08:04:41+08:00",
+      "time_precision": "datetime",
+      "heat": 5,
+      "breaking": true,
+      "focus": "OpenAI",
+      "headline_original": "The matrix multiplication exponent is nine-fourths (November 24, 2026)",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "huawei-verdict",
+      "headline": "美国陪审团认定华为多项罪名成立，敲诈勒索共谋罪被判无罪",
+      "summary": "美国司法部宣布，纽约东区联邦陪审团认定华为及其三家子公司在涉及伊朗业务的制裁违规、向银行撒谎、洗钱以及合谋窃取美国公司商业秘密等指控上有罪。该公司被判敲诈勒索共谋罪不成立。这起刑事案件可追溯至2018年立案。",
+      "category": "社会政治",
+      "source": "U.S. Department of Justice",
+      "url": "https://www.justice.gov/opa/pr/chinese-tech-giant-huawei-and-subsidiaries-convicted-sanctions-violations-fraud-conspiracy",
+      "published": "2026-11-25 06:21 UTC+8",
+      "published_iso": "2026-11-25T06:21:35+08:00",
+      "time_precision": "datetime",
+      "heat": 5,
+      "breaking": false,
+      "headline_original": "Chinese Tech Giant Huawei and Subsidiaries Convicted of Sanctions Violations, Fraud, Conspiracy to Steal Trade Secrets, and Money Laundering",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "chen-jining",
+      "headline": "上海市委书记陈吉宁涉嫌严重违纪违法，接受中央纪委国家监委审查调查",
+      "summary": "新华社11月24日报道，中共中央政治局委员、上海市委书记陈吉宁涉嫌严重违纪违法，目前正接受中央纪委国家监委审查调查。官方通报未说明具体事由。",
+      "category": "社会政治",
+      "source": "Xinhua",
+      "url": "https://english.news.cn/20261124/f1bf2575ddcd410da2edf166237ed1df/c.html",
+      "published": "2026-11-24 19:31 UTC+8",
+      "published_iso": "2026-11-24T19:31:30+08:00",
+      "time_precision": "datetime",
+      "heat": 5,
+      "breaking": false,
+      "headline_original": "Shanghai Party chief Chen Jining under investigation",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "openai-gpt6-protein",
+      "headline_original": "GPT-6 models demonstrate intrinsic protein-design capabilities",
+      "lang": "en",
+      "headline": "OpenAI：GPT-6系列模型展现内生的蛋白质设计能力",
+      "summary": "OpenAI发布预印本称，GPT-6系列模型仅凭推理与代码即可设计新的蛋白质结构及其序列；与合作方Onava的实验中，基于GPT-6.2设计的蛋白在五个靶点上显示出结合迹象，但候选序列的提供与筛选仍借助了专用生物模型。",
+      "category": "理工科",
+      "source": "OpenAI",
+      "url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities",
+      "published": "2026-11-24（美国时间，官方博客日期）",
+      "published_iso": "2026-11-24",
+      "time_precision": "date",
+      "heat": 5,
+      "breaking": false,
+      "focus": "OpenAI",
+      "headline_original_verified": true
+    },
+    {
+      "id": "gta6-fortune-379b",
+      "headline_original": "GTA VI’s $3.79 billion debut has Zuckerberg joking and Musk laughing, but Take-Two investors still want more",
+      "lang": "en",
+      "headline": "《GTA6》首发38亿美元，扎克伯格与马斯克玩梗，但Take-Two投资者仍不满足",
+      "summary": "《财富》报道，《GTA6》首发销售额达37.9亿美元并在科技圈名人间刷屏，但Take-Two的投资者对后续增长仍抱有更高期待。",
+      "category": "游戏",
+      "source": "Fortune",
+      "url": "https://fortune.com/2026/11/25/gta6-gtavi-video-games-take-two-interactive-investors-mark-zuckerberg-elon-musk-meta-priscilla-chan/",
+      "published": "2026-11-25 16:01 UTC+8",
+      "published_iso": "2026-11-25T16:01:00+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "headline_original_verified": true
+    },
+    {
+      "id": "samara-refineries",
+      "headline_original": "Ukrainian Drones Hit 2 Major Oil Refineries in Samara as Putin Urges Oil Industry Shift East",
+      "lang": "en",
+      "headline": "乌克兰无人机夜袭萨马拉州两座大型炼油厂，普京敦促石油业东移",
+      "summary": "乌军25日夜间用无人机袭击俄罗斯萨马拉州的锡兹兰与古比雪夫炼油厂，两厂起火；据Kyiv Post，11月以来乌方已打击扰乱16处俄能源设施，普京则要求石油公司扩大西伯利亚和远东产能。",
+      "category": "社会政治",
+      "source": "Kyiv Post",
+      "url": "https://www.kyivpost.com/post/91110",
+      "published": "2026-11-25 15:05 UTC+8",
+      "published_iso": "2026-11-25T15:05:00+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "headline_original_verified": true
+    },
+    {
+      "id": "hormuz-irgc-mines",
+      "headline": "伊朗革命卫队称两艘油轮在霍尔木兹海峡触雷起火",
+      "summary": "伊朗国家媒体援引伊斯兰革命卫队海军声明称，两艘试图经“未经授权航线”、并关闭定位系统通过霍尔木兹海峡的油轮触发水雷，机舱发生爆炸起火，事发地点靠近海峡南岸和东岸。该说法尚无法独立核实。",
+      "category": "社会政治",
+      "source": "Iran International",
+      "url": "https://www.iranintl.com/en/202611254354",
+      "published": "2026-11-25 12:42 UTC+8",
+      "published_iso": "2026-11-25T12:42:24+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "headline_original": "IRGC navy says two oil tankers struck naval mines in Strait of Hormuz – state media",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "miss-universe-2026",
+      "headline": "波多黎各选手珍妮弗·巴雷托问鼎2026年环球小姐",
+      "summary": "CNN报道，波多黎各选手珍妮弗·巴雷托（Jennifer Barreto）在2026年环球小姐总决赛中加冕。该赛事在波多黎各举行，夺冠消息成为当天全球社交平台上最热的话题之一。",
+      "category": "其他",
+      "source": "CNN",
+      "url": "https://cnnespanol.cnn.com/2026/11/24/entretenimiento/puerto-rico-gana-miss-universo-75-orix",
+      "published": "2026-11-25 12:09 UTC+8",
+      "published_iso": "2026-11-25T12:09:13+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "headline_original": "Jennifer Barreto, de Puerto Rico, se corona Miss Universo en casa",
+      "headline_original_verified": true,
+      "lang": "es"
+    },
+    {
+      "id": "nk-swiss-diplomat",
+      "headline": "朝鲜宣布瑞士驻平壤外交代表处负责人为不受欢迎的人，限48小时离境",
+      "summary": "CNA援引朝中社报道，朝鲜外交省于11月25日宣布瑞士驻朝外交代表处负责人西尔万·阿斯蒂埃（Sylvain Astier）为不受欢迎的人，要求其在48小时内离境，并递交备忘录要求关闭该代表处。朝方将此举与瑞士把元山松岛园国际少年团营列入制裁名单联系起来，称之为“公开敌对行为”。",
+      "category": "社会政治",
+      "source": "CNA",
+      "url": "https://www.channelnewsasia.com/east-asia/north-korea-expels-head-swiss-diplomatic-office-state-media-6580516",
+      "published": "2026-11-25 11:52 UTC+8",
+      "published_iso": "2026-11-25T11:52:00+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "headline_original": "North Korea expels head of Swiss diplomatic office: State media",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "cdpr-q3-witcher4-ps",
+      "headline": "CD Projekt三季度营收降31%，宣布与PlayStation就《巫师4》营销合作",
+      "summary": "CD Projekt公布2026年第三季度财报：营收2.081亿兹罗提，同比下降31%，净利润下降46%。《巫师3》重制版带动Steam同时在线创历史新高。公司当天与索尼签署新合作协议，涵盖PlayStation平台与PS Plus以及《巫师4》营销；《赛博朋克2》尚未进入全面制作。",
+      "category": "游戏",
+      "source": "This Week in Videogames",
+      "url": "https://thisweekinvideogames.com/news/cd-projekt-notes-historical-high-witcher-engagement-playstation-marketing-partnership-for-witcher-4/",
+      "published": "2026-11-25 11:02 UTC+8",
+      "published_iso": "2026-11-25T11:02:44+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "headline_original": "CD Projekt Notes \"Historical\" High Witcher Engagement, PlayStation Marketing Partnership for Witcher 4",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "softbank-chip-selloff",
+      "headline": "“黄仁勋效应”退潮：软银集团跌10%，爱德万测试跌超12%",
+      "summary": "黄仁勋回归英伟达带来的亚洲科技股涨势隔日逆转，日本芯片股领跌：爱德万测试跌12.26%、东京电子跌10.9%，重仓OpenAI等AI公司的软银集团下跌10%，Lasertec跌10.15%。",
+      "category": "其他",
+      "source": "Seoul Economic Daily",
+      "url": "https://en.sedaily.com/world/2026/11/25/softbank-falls-10-percent-as-asian-tech-stocks-tumble-on",
+      "published": "2026-11-25 10:16 UTC+8",
+      "published_iso": "2026-11-25T10:16:10+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "headline_original": "SoftBank Falls 10% as Asian Tech Stocks Tumble on Short-Lived Huang Effect",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "cia-odni-breach",
+      "headline": "美国CIA与国家情报总监办公室一非涉密情报分析系统遭黑客入侵",
+      "summary": "Nextgov/FCW报道，CIA和ODNI发现一套用于分析公开及商业来源信息的非涉密系统遭入侵；知情人士称事件已处置完毕，未波及涉密系统。多家媒体称调查人员怀疑攻击者使用了AI黑客工具，但归属尚未确认。",
+      "category": "社会政治",
+      "source": "Nextgov/FCW",
+      "url": "https://www.nextgov.com/cybersecurity/2026/11/cia-odni-unclassified-intelligence-system-hacked/417438/",
+      "published": "2026-11-25 06:46 UTC+8",
+      "published_iso": "2026-11-25T06:46:00+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "headline_original": "CIA, ODNI unclassified intelligence system hacked",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "anthropic-below-ipo",
+      "headline": "Anthropic股价上市第四个交易日跌破83美元发行价",
+      "summary": "Anthropic（ANT）周二收跌6.5%，首次跌破83美元IPO发行价。该公司11月19日以募资813亿美元完成史上最大IPO，首日开盘价111.5美元，此后持续回落；同日英伟达、AMD等芯片股和CoreWeave等云算力股也走弱。Canaccord、Oppenheimer等机构仍给出买入/跑赢大盘评级。",
+      "category": "其他",
+      "source": "CNBC",
+      "url": "https://www.cnbc.com/2026/11/24/anthropic-stock-ipo-price.html",
+      "published": "2026-11-25 05:04 UTC+8（更新）",
+      "published_iso": "2026-11-25T05:04:00+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "headline_original": "Anthropic closes below $83 IPO price, but analysts are still largely positive",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "lck-stove-kukinews",
+      "headline_original": "‘3강’ T1·한화생명·젠지 재편, 도란·카나비 품은 DK…데프트는 농심으로 [LCK 스토브리그]",
+      "lang": "ko",
+      "headline": "LCK转会期：T1、韩华生命、Gen.G三强重组，DK揽下Doran与Kanavi，Deft加盟农心",
+      "summary": "国民日报汇总LCK 2027转会期：Zeus回归T1可能性大，韩华生命与Gen.G也在重组上路；DK签下Doran、Kanavi与Delight，KT同样补强，农心则让2022全球总决赛冠军成员中的三人重聚，包括Deft。",
+      "category": "游戏",
+      "source": "Kuki News (국민일보)",
+      "url": "https://www.kukinews.com/article/view/kuk202611240173",
+      "published": "2026-11-25 05:00 UTC+8",
+      "published_iso": "2026-11-25T05:00:08+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "focus": "英雄联盟",
+      "headline_original_verified": true
+    },
+    {
+      "id": "trump-iran-leaders",
+      "headline": "NBC：特朗普政府内部讨论是否对伊朗高层领导人实施打击",
+      "summary": "据NBC援引一名美国官员及知情人士，特朗普政府官员正在内部辩论美军是否应针对伊朗剩余高层领导人，以清除强硬派、迫使德黑兰结束战争；反对者担心此举会令留任者更加强硬、损害外交并加剧报复风险，特朗普尚未作出最终决定。",
+      "category": "社会政治",
+      "source": "NBC News",
+      "url": "https://www.nbcnews.com/politics/national-security/trump-administration-officials-debating-targeting-irans-leaders-source-rcna610889",
+      "published": "2026-11-25 00:00 UTC+8",
+      "published_iso": "2026-11-25T00:00:00+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "headline_original": "Trump administration officials debating targeting Iran’s leaders, sources say",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "openai-anthropic-safety-axios",
+      "headline": "Axios：OpenAI与Anthropic部分员工担忧内部未发布模型过于危险",
+      "summary": "据Axios援引二十多名知情人士报道，OpenAI和Anthropic部分员工认为一些未公开的内部模型能力过强，存在绕过安全控制、隐藏推理过程等风险，内部甚至有人主张暂停训练；也有人认为可以改进控制手段。两家公司表示已采取新的安全措施。",
+      "category": "理工科",
+      "source": "The Next Web（援引Axios）",
+      "url": "https://thenextweb.com/news/anthropic-openai-staff-fear-unreleased-models-unsafe-axios",
+      "published": "2026-11-24 23:02 UTC+8",
+      "published_iso": "2026-11-24T23:02:48+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "focus": "OpenAI",
+      "headline_original": "AI staff fear their models “will in fact be able to trick us”",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "senegal-afcon",
+      "headline": "国际体育仲裁法庭裁定塞内加尔重获2025年非洲杯冠军",
+      "summary": "BBC体育报道，国际体育仲裁法庭（CAS）裁定，撤销非洲足联此前剥夺塞内加尔冠军头衔的决定，确认1月对阵东道主摩洛哥的决赛应按赛场已完成的结果计算，塞内加尔重获冠军。当时塞内加尔曾因点球判罚一度离场抗议，裁判在双方回到球场后重新开球并赛完。",
+      "category": "其他",
+      "source": "BBC Sport",
+      "url": "https://www.bbc.com/sport/football/articles/crn80y2l1404o",
+      "published": "2026-11-24 22:26 UTC+8",
+      "published_iso": "2026-11-24T22:26:39+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "headline_original": "Afcon 2025 final verdict: Senegal reinstated as winners by Cas",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "nvidia-huang-probes",
+      "headline": "黄仁勋重返英伟达CEO后，调查与治理疑问仍在",
+      "summary": "CNBC报道，英伟达董事会在美国总统特朗普过问后已恢复黄仁勋的总裁、CEO及董事职务，周一股价大幅上涨；但公司对“黄仁勋曾是外国情报行动目标”的独立调查仍在继续，加州司法部等外部审查亦未结束，分析认为治理与合规风险仍在。",
+      "category": "理工科",
+      "source": "CNBC",
+      "url": "https://www.cnbc.com/2026/11/24/nvidia-jensen-huang-ceo-return.html",
+      "published": "2026-11-24 22:09 UTC+8",
+      "published_iso": "2026-11-24T22:09:18+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "headline_original": "Nvidia brought Jensen Huang back. But the investigations aren’t over",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "fda-bezuclastinib",
+      "headline": "FDA批准bezuclastinib联合舒尼替尼用于既往伊马替尼治疗后的晚期GIST",
+      "summary": "美国食品药品管理局于11月24日批准Cogent Biosciences的激酶抑制剂bezuclastinib（商品名Ekitna）与舒尼替尼联合，用于先前接受过伊马替尼治疗的成年晚期胃肠道间质瘤患者。疗效数据来自PEAK试验，共入组413例局部晚期、不可切除或转移性GIST患者。",
+      "category": "理工科",
+      "source": "FDA",
+      "url": "https://www.fda.gov/drugs/cancer-approvals/fda-approves-bezuclastinib-combination-sunitinib-advanced-gastrointestinal-stromal-tumors",
+      "published": "2026-11-24 22:04 UTC+8",
+      "published_iso": "2026-11-24T22:04:00+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "headline_original": "FDA approves bezuclastinib in combination with sunitinib",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "geng-roster",
+      "headline": "Gen.G官宣签约Siwoo、Sharvel与Cloud，完成2027赛季阵容",
+      "summary": "Inven Global报道，Gen.G于11月24日宣布签下上单全始宇（Siwoo）、打野金丹宇（Sharvel）和辅助文炫皓（Cloud），与中单Chovy、下路Ruler组成2027赛季LCK阵容。三人接替已离队的Kiin、Canyon和Duro。",
+      "category": "游戏",
+      "source": "Inven Global",
+      "url": "https://www.invenglobal.com/articles/29049/geng-completes-2027-roster-with-signings-of-siwoo-sharvel-and-cloud",
+      "published": "2026-11-24 19:43 UTC+8",
+      "published_iso": "2026-11-24T19:43:05+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "focus": "英雄联盟",
+      "headline_original": "Gen.G completes 2027 roster with signings of Siwoo, Sharvel, and Cloud",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "canyon-hle",
+      "headline": "打野Canyon加盟韩华生命，结束在Gen.G的三年周期",
+      "summary": "Inven Global报道，韩华生命电子竞技俱乐部11月24日通过官方频道宣布签下金建敷（Canyon）。Canyon曾效力DAMWON并夺得全球总决赛冠军，近三个赛季为Gen.G效力，期间获得过LCK春季赛与MSI等冠军。",
+      "category": "游戏",
+      "source": "Inven Global",
+      "url": "https://www.invenglobal.com/articles/29047/the-polar-bear-embraces-orange-canyon-joins-hanwha-life-esports",
+      "published": "2026-11-24 17:08 UTC+8",
+      "published_iso": "2026-11-24T17:08:36+08:00",
+      "time_precision": "datetime",
+      "heat": 4,
+      "breaking": false,
+      "focus": "英雄联盟",
+      "headline_original": "The 'Polar Bear' Embraces Orange: 'Canyon' Joins Hanwha Life Esports",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "ucl-md5-tuesday",
+      "headline": "欧冠第五轮：皇马5-1逆转PSV保持全胜，阿森纳1-1战平多特",
+      "summary": "欧冠联赛阶段第五轮周二赛果：皇马5-1逆转埃因霍温，姆巴佩梅开二度、贝林厄姆远射破门；阿森纳1-1战平多特蒙德，曼城2-2战平那不勒斯；科莫和加拉塔萨雷均1-0取胜，豪取三连胜。",
+      "category": "其他",
+      "source": "UEFA.com",
+      "url": "https://www.uefa.com/uefachampionsleague/news/02ab-222684fc8e44-2b1a32c90a7a-1000--champions-league-round-up-real-madrid-stay-perfect-galat/",
+      "published": "2026-11-25（北京时间凌晨赛果）",
+      "published_iso": "2026-11-25",
+      "time_precision": "date",
+      "heat": 3,
+      "breaking": false,
+      "headline_original": "Champions League highlights and round-up: Real Madrid stay perfect, Galatasaray and Como win again",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "lol-voice-tyler1",
+      "headline": "《英雄联盟》全队语音测试首起处罚：主播Tyler1因辱骂队友被封3天",
+      "summary": "随26.23版本在北美和大洋洲服开启测试的全队语音功能（随机匹配队友也可直接语音）引发首个知名处罚案例：Twitch主播Tyler1因语音辱骂队友被封号3天、禁言7天，拳头合作伙伴计划资格暂停30天。Tyler1称是与队友开玩笑并质疑处罚力度；拳头此前已说明语音会被录制并可作为处罚依据。",
+      "category": "游戏",
+      "source": "17173（来源：IT之家）",
+      "url": "https://news.17173.com/content/11252026/133124119.shtml",
+      "published": "2026-11-25 13:31 UTC+8",
+      "published_iso": "2026-11-25T13:31:24+08:00",
+      "time_precision": "datetime",
+      "heat": 3,
+      "breaking": false,
+      "focus": "英雄联盟",
+      "headline_original": "《英雄联盟》全队语音开启测试，拳头合作主播 Tyler1 因辱骂队友被封 3 天",
+      "headline_original_verified": true,
+      "lang": "zh-Hans"
+    },
+    {
+      "id": "colombia-blackout-attack",
+      "headline": "哥伦比亚政府确认西南部大停电系恐怖袭击所致",
+      "summary": "哥伦比亚政府称，一起针对输电设施的恐怖袭击破坏了连接变电站的两条线路，导致纳里尼奥、普图马约及考卡、乌伊拉、卡克塔部分地区停电。总统德拉埃斯普列利亚下令矿业能源部和国防部评估损失，并立即启动全国电力和天然气基础设施特别防护计划。",
+      "category": "社会政治",
+      "source": "El País (Cali)",
+      "url": "https://www.elpais.com.co/judicial/gobierno-confirma-que-apagon-en-el-suroccidente-de-colombia-fue-un-atentado-2443.html",
+      "published": "2026-11-25 11:45 UTC+8",
+      "published_iso": "2026-11-25T11:45:13+08:00",
+      "time_precision": "datetime",
+      "heat": 3,
+      "breaking": false,
+      "headline_original": "Fue un atentado: Gobierno confirma que apagón en suroccidente de Colombia fue causado por un ataque",
+      "headline_original_verified": true,
+      "lang": "es"
+    },
+    {
+      "id": "exoprimal-eos",
+      "headline": "卡普空宣布《Exoprimal》将于2027年9月29日停服",
+      "summary": "卡普空宣布团队恐龙射击游戏《Exoprimal》将于太平洋时间2027年9月29日20:00结束服务，届时游戏将无法游玩；2027年3月30日起从数字商店下架，已购玩家在停服前仍可重新下载。",
+      "category": "游戏",
+      "source": "Gematsu",
+      "url": "https://www.gematsu.com/2026/11/exoprimal-to-end-service-on-september-29-2027",
+      "published": "2026-11-25 11:06 UTC+8",
+      "published_iso": "2026-11-25T11:06:51+08:00",
+      "time_precision": "datetime",
+      "heat": 3,
+      "breaking": false,
+      "headline_original": "Exoprimal to end service on September 29, 2027",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "netease-fpc-closing",
+      "headline_original": "Several NetEase overseas studios are closing.",
+      "lang": "en",
+      "headline": "网易多家海外工作室关闭",
+      "summary": "据GMT Eight，网易海外工作室Fantastic Pixel Castle宣布关闭，被认为与网易收缩海外投资有关；该工作室由前《魔兽世界》《英雄联盟》设计师Greg Street于2023年创立，正在开发代号“Ghost”的MMORPG。",
+      "category": "游戏",
+      "source": "GMT Eight",
+      "url": "https://gmt8press.com/flash/detail/1048071",
+      "published": "2026-11-25",
+      "published_iso": "2026-11-25T10:00:00+08:00",
+      "time_precision": "date",
+      "heat": 3,
+      "breaking": false,
+      "headline_original_verified": true
+    },
+    {
+      "id": "macys-parade-storm",
+      "headline": "强天气或影响第100届梅西感恩节游行气球能否升空",
+      "summary": "ABC7纽约报道，强风和降雨可能影响第100届梅西百货感恩节游行的气球升空。根据市规定，持续风速超过23英里/小时或阵风超过34英里/小时就必须停飞气球；官方尚未决定是正常高度飞行、缩短缆绳还是完全停飞。报道称游行本身预计仍将举行。",
+      "category": "其他",
+      "source": "ABC7 New York",
+      "url": "https://abc7ny.com/story/macys-thanksgiving-day-parade-balloons-fate-uncertain-amid-storm-threat/20076169/",
+      "published": "2026-11-25 09:46 UTC+8（更新）",
+      "published_iso": "2026-11-25T09:46:34+08:00",
+      "time_precision": "datetime",
+      "heat": 3,
+      "breaking": false,
+      "headline_original": "Will the Macy's parade balloons fly? NYC weighs earlier start amid storm threat",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "bangladesh-garment-wage",
+      "headline": "孟加拉国服装工人最低工资上调36%至1.7万塔卡",
+      "summary": "在持续数周的抗议后，孟加拉国最低工资委员会投票将服装业入门级最低月薪由1.25万塔卡上调至1.7万塔卡，新的四级工资结构为1.7万至2.15万塔卡，定于12月1日生效。工人代表表示不满但接受决定。",
+      "category": "社会政治",
+      "source": "The Business Standard",
+      "url": "https://www.tbsnews.net/economy/rmg/minimum-garment-wage-set-tk17000-after-vote-workers-accept-decision-despite",
+      "published": "2026-11-25 09:40 UTC+8",
+      "published_iso": "2026-11-25T09:40:00+08:00",
+      "time_precision": "datetime",
+      "heat": 3,
+      "breaking": false,
+      "headline_original": "Minimum garment wage set at Tk17,000 after vote, workers accept decision despite dissatisfaction",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "endfield-1-7",
+      "headline": "《明日方舟：终末地》1.7版本「蘑菇世界」今日上线",
+      "summary": "鹰角旗下《明日方舟：终末地》1.7版本于北京时间11月25日维护后上线PC、移动端和PS5，新增6星干员Kay、可免费获得的5星干员Mimino及新区域，维护补偿共计1800衍质源石。",
+      "category": "游戏",
+      "source": "Arknights: Endfield",
+      "url": "https://endfield.gryphline.com/en-us/news/0740",
+      "published": "2026-11-25 09:00 UTC+8",
+      "published_iso": "2026-11-25T09:00:00+08:00",
+      "time_precision": "datetime",
+      "heat": 3,
+      "breaking": false,
+      "headline_original": "[Meeting You in the World o'Shrooms] Version Update Notes",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "flyquest-massu",
+      "headline": "FlyQuest官宣ADC Massu离队，传将加盟Shopify Rebellion",
+      "summary": "LCS战队FlyQuest宣布下路选手Massu即日起离队，称其四年内从二队成长为年度最佳新秀、四次联赛冠军得主和队伍领袖，“这一次的离别真的令人心痛”。Sheep Esports此前援引消息源称Massu将加盟Shopify Rebellion征战LCS 2027。",
+      "category": "游戏",
+      "source": "小红书体育（dp191）",
+      "url": "https://www.dp191.com/news/154721.html",
+      "published": "2026-11-25 08:59 UTC+8",
+      "published_iso": "2026-11-25T08:59:34+08:00",
+      "time_precision": "datetime",
+      "heat": 3,
+      "breaking": false,
+      "focus": "英雄联盟",
+      "headline_original": "FLY发布人员变动公告：下路选手Massu即日起离队",
+      "headline_original_verified": true,
+      "lang": "zh-Hans"
+    },
+    {
+      "id": "mississippi-plane-crash",
+      "headline": "美国密西西比州近海小型飞机坠毁，机上6人全部遇难含2名儿童",
+      "summary": "一架从新奥尔良飞往佛州迈尔斯堡的塞斯纳210于当地时间24日在霍恩岛东北约两英里处坠入墨西哥湾，机上4名成人和2名男孩（8岁、10岁）全部遇难，NTSB正牵头调查。",
+      "category": "其他",
+      "source": "BBC",
+      "url": "https://www.bbc.com/news/articles/c6z74l1017zpo",
+      "published": "2026-11-25",
+      "published_iso": "2026-11-25T08:00:00+08:00",
+      "time_precision": "date",
+      "heat": 3,
+      "breaking": false,
+      "headline_original": "Two children among six dead after plane crash off Mississippi coast",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "openai-gpt62-chat",
+      "headline": "OpenAI将GPT-6.2推向ChatGPT日常对话，图像理解与指令遵循大幅提升",
+      "summary": "据OpenAI发布说明（韩国电子新闻报道），基于GPT-6.2 Sol优化的对话模型将按订阅档位分批上线ChatGPT聊天界面；官方称其图像理解评测得分由47.4%升至71.7%，复杂指令执行由62.5%升至78.1%，网页搜索能力亦有增强。",
+      "category": "理工科",
+      "source": "Electronic Times (etnews)",
+      "url": "https://en.etnews.com/20261125200003",
+      "published": "2026-11-25",
+      "published_iso": "2026-11-25T08:00:00+08:00",
+      "time_precision": "date",
+      "heat": 3,
+      "breaking": false,
+      "focus": "OpenAI",
+      "headline_original": "OpenAI Expands GPT-6.2 Chat, Boosts Agent and Coding Capabilities",
+      "headline_original_verified": true,
+      "lang": "en"
+    },
+    {
+      "id": "openai-thariq-hire",
+      "headline": "据报道Claude Code知名工程师Thariq Shihipar加入OpenAI",
+      "summary": "OfficeChai援引长期追踪AI实验室人事变动的X账号Arfur Grok称，曾是Anthropic Claude Code团队最具公众辨识度成员之一的Thariq Shihipar已加入OpenAI；本人与OpenAI均未公开确认。若属实，他将是一个月内继产品负责人Cat Wu之后第二位转投OpenAI的Claude Code核心人员，或将助力OpenAI的Codex。",
+      "category": "理工科",
+      "source": "OfficeChai",
+      "url": "https://officechai.com/ai/anthropics-thariq-shihipar-who-was-the-face-of-claude-code-on-x-has-reportedly-joined-openai/",
+      "published": "2026-11-25",
+      "published_iso": "2026-11-25T00:00:00+08:00",
+      "time_precision": "date",
+      "heat": 3,
+      "breaking": false,
+      "focus": "OpenAI",
+      "headline_original": "Anthropic's Thariq Shihipar, Who Was The Face Of Claude Code On X, Has Reportedly Joined OpenAI",
+      "headline_original_verified": true,
+      "lang": "en"
+    }
+  ],
+  "edition_label": "2026-11-25 17:00 版",
+  "edition_no_label": "第18期",
+  "edition_slug": "20261125-17",
+  "edition_no": 18
+}
+  </script>
+  <script>
+    (function () {
+      var STORAGE_THEME = "zhengdian-dianxun-theme";
+      var STORAGE_WATCH = "zhengdian-dianxun-watch";
+      var root = document.documentElement;
+      var toggle = document.getElementById("theme-toggle");
+
+      function systemTheme() {
+        return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      function applyTheme(theme) {
+        root.setAttribute("data-theme", theme);
+        toggle.textContent = theme === "dark" ? "切换浅色模式" : "切换深色模式";
+      }
+      var saved = localStorage.getItem(STORAGE_THEME);
+      applyTheme(saved === "dark" || saved === "light" ? saved : systemTheme());
+      toggle.addEventListener("click", function () {
+        var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        localStorage.setItem(STORAGE_THEME, next);
+        applyTheme(next);
+      });
+      if (window.matchMedia) {
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+          if (!localStorage.getItem(STORAGE_THEME)) applyTheme(e.matches ? "dark" : "light");
+        });
+      }
+
+      var raw = document.getElementById("news-data").textContent;
+      var data = JSON.parse(raw);
+      var stories = data.stories || [];
+      var refreshSeconds = Number(data.refresh_seconds || 600);
+      document.getElementById("updated-label").textContent = data.updated || "";
+      document.getElementById("edition-label").textContent = data.edition_label || "";
+      document.getElementById("edition-no").textContent = data.edition_no_label || "";
+
+      var deadline = Date.now() + refreshSeconds * 1000;
+      var countEl = document.getElementById("countdown");
+      function tick() {
+        var left = Math.max(0, Math.floor((deadline - Date.now()) / 1000));
+        var m = String(Math.floor(left / 60)).padStart(2, "0");
+        var s = String(left % 60).padStart(2, "0");
+        countEl.textContent = m + ":" + s;
+      }
+      tick();
+      setInterval(tick, 1000);
+
+      function loadWatch() {
+        try {
+          var arr = JSON.parse(localStorage.getItem(STORAGE_WATCH) || "[]");
+          return Array.isArray(arr) ? arr : [];
+        } catch (e) { return []; }
+      }
+      function saveWatch(ids) {
+        localStorage.setItem(STORAGE_WATCH, JSON.stringify(ids));
+      }
+      var watched = loadWatch();
+
+      var categories = ["我的关注", "全部", "理工科", "社会政治", "游戏", "其他"];
+      var currentCat = "全部";
+      var currentSort = "heat";
+      var tabs = document.getElementById("tabs");
+      var wire = document.getElementById("wire");
+
+      function isChinese(text) {
+        var s = String(text || "");
+        var cjk = (s.match(/[\u4e00-\u9fff]/g) || []).length;
+        var letters = (s.match(/[A-Za-z\u4e00-\u9fff]/g) || []).length;
+        return letters > 0 && (cjk / letters) >= 0.45;
+      }
+      function originalOf(s) {
+        return (s.headline_original && String(s.headline_original).trim()) || s.headline || "";
+      }
+      function showZhLine(s) {
+        var orig = originalOf(s);
+        var zh = s.headline || "";
+        if (!zh) return false;
+        if (orig.replace(/\s+/g, "") === zh.replace(/\s+/g, "")) return false;
+        if (isChinese(orig)) return false;
+        var lang = String(s.lang || "").toLowerCase();
+        if (lang.indexOf("zh") === 0) return false;
+        return true;
+      }
+      function countCat(cat) {
+        if (cat === "全部") return stories.length;
+        if (cat === "我的关注") return stories.filter(function (s) { return !!s.focus || watched.indexOf(s.id) >= 0; }).length;
+        return stories.filter(function (s) { return s.category === cat; }).length;
+      }
+      function sortKey(story) {
+        var iso = story.published_iso || story.published || "";
+        var t;
+        if (story.time_precision === "date") {
+          t = Date.parse(String(iso).slice(0, 10) + "T23:59:59+08:00");
+        } else {
+          t = Date.parse(iso);
+        }
+        if (isNaN(t)) t = 0;
+        if (currentSort === "time") return -t;
+        return (-Number(story.heat || 0) * 1e15) - t;
+      }
+      function escapeHtml(s) {
+        return String(s == null ? "" : s)
+          .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+      }
+      function heatMarks(n) {
+        n = Number(n || 0);
+        var s = "";
+        for (var i = 1; i <= 5; i++) s += i <= n ? "●" : "○";
+        return s + " " + n;
+      }
+      function shortTime(story) {
+        var iso = story.published_iso || "";
+        var d = Date.parse(iso);
+        if (!isNaN(d)) {
+          var dt = new Date(d);
+          var pad = function (x) { return String(x).padStart(2, "0"); };
+          // format in UTC+8
+          var utc = d + (dt.getTimezoneOffset() * 60000);
+          var cst = new Date(utc + 8 * 3600000);
+          if (story.time_precision === "date") {
+            return pad(cst.getMonth() + 1) + "/" + pad(cst.getDate());
+          }
+          return pad(cst.getMonth() + 1) + "/" + pad(cst.getDate()) + " " + pad(cst.getHours()) + ":" + pad(cst.getMinutes());
+        }
+        return story.published || "";
+      }
+      function visibleStories() {
+        var list = stories.filter(function (s) {
+          if (currentCat === "全部") return true;
+          if (currentCat === "我的关注") return !!s.focus || watched.indexOf(s.id) >= 0;
+          return s.category === currentCat;
+        }).slice();
+        list.sort(function (a, b) {
+          var d = sortKey(a) - sortKey(b);
+          if (d) return d;
+          return String(b.published_iso || "").localeCompare(String(a.published_iso || ""));
+        });
+        return list;
+      }
+      function renderTabs() {
+        tabs.innerHTML = categories.map(function (cat) {
+          return '<button class="tab" type="button" role="tab" data-cat="' + cat +
+            '" aria-selected="' + (cat === currentCat) + '">' + cat +
+            '<span class="n">' + countCat(cat) + "</span></button>";
+        }).join("");
+      }
+      function renderFlash() {
+        var box = document.getElementById("flash");
+        var list = document.getElementById("flash-list");
+        var items = stories.filter(function (s) { return s.breaking; }).slice()
+          .sort(function (a, b) { return sortKey(a) - sortKey(b); });
+        if (!items.length) { box.hidden = true; return; }
+        box.hidden = false;
+        list.innerHTML = items.map(function (s) {
+          var orig = originalOf(s);
+          var zh = showZhLine(s) ? '<div class="zh">' + escapeHtml(s.headline) + "</div>" : "";
+          return "<li><a href=\"" + escapeHtml(s.url) + "\" target=\"_blank\" rel=\"noopener noreferrer\">" +
+            "<div class=\"oh\">" + escapeHtml(orig) + "</div>" + zh +
+            "<div class=\"bm\">" + escapeHtml(s.source || "") + " · " + escapeHtml(s.published || "") +
+            "</div></a></li>";
+        }).join("");
+      }
+      function renderWire() {
+        var list = visibleStories();
+        if (!list.length) {
+          wire.innerHTML = currentCat === "我的关注"
+            ? '<p class="empty-hint">尚未关注任何电讯。点击条目右侧星标，将其加入本机关注列表。</p>'
+            : "";
+          return;
+        }
+        wire.innerHTML = list.map(function (s) {
+          var orig = originalOf(s);
+          var zh = showZhLine(s) ? '<p class="zh">' + escapeHtml(s.headline) + "</p>" : "";
+          var on = watched.indexOf(s.id) >= 0;
+          return '<article class="dispatch" data-id="' + escapeHtml(s.id) + '">' +
+            '<div class="stamp">' + escapeHtml(shortTime(s)) + "</div>" +
+            '<div class="body">' +
+            '<div class="row-meta"><span class="cat">' + escapeHtml(s.category || "") +
+            '</span><span class="heat" title="热度">' + heatMarks(s.heat) + "</span></div>" +
+            '<h2 class="oh"><a href="' + escapeHtml(s.url) + '" target="_blank" rel="noopener noreferrer">' +
+            escapeHtml(orig) + "</a></h2>" + zh +
+            '<p class="sum">' + escapeHtml(s.summary || "") + "</p>" +
+            '<p class="src">' + escapeHtml(s.source || "") + " · " + escapeHtml(s.published || "") + "</p>" +
+            "</div>" +
+            '<button class="watch-btn" type="button" aria-pressed="' + on + '" aria-label="关注" title="关注">' +
+            (on ? "★" : "☆") + "</button></article>";
+        }).join("");
+      }
+      tabs.addEventListener("click", function (e) {
+        var btn = e.target.closest(".tab");
+        if (!btn) return;
+        currentCat = btn.getAttribute("data-cat");
+        renderTabs();
+        renderWire();
+      });
+      document.querySelector(".sorts").addEventListener("click", function (e) {
+        var btn = e.target.closest(".sort");
+        if (!btn) return;
+        currentSort = btn.getAttribute("data-sort");
+        document.querySelectorAll(".sort").forEach(function (b) {
+          b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+        });
+        renderFlash();
+        renderWire();
+      });
+      wire.addEventListener("click", function (e) {
+        var btn = e.target.closest(".watch-btn");
+        if (!btn) return;
+        var art = btn.closest(".dispatch");
+        if (!art) return;
+        var id = art.getAttribute("data-id");
+        var i = watched.indexOf(id);
+        if (i >= 0) watched.splice(i, 1);
+        else watched.push(id);
+        saveWatch(watched);
+        renderTabs();
+        renderWire();
+      });
+      renderTabs();
+      renderFlash();
+      renderWire();
+    })();
+  </script>
+</body>
+</html>

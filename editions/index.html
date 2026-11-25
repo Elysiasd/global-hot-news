@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>整点电讯 · 过往版本</title>
+  <style>
+    :root { --bg:#f3efe4; --ink:#161410; --soft:#5a554b; --rule:#c9c1b0; --strong:#161410; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#10100e; --ink:#ece6d8; --soft:#b3ab9c; --rule:#3a372f; --strong:#ece6d8; }
+    }
+    body { margin:0; background:var(--bg); color:var(--ink);
+      font-family:"Palatino Linotype", Palatino, "Songti SC", "Noto Serif SC", Georgia, serif; }
+    .wrap { width:min(860px, calc(100% - 32px)); margin:0 auto; padding:28px 0 48px; }
+    .kicker, .meta, a.item, footer { font-family: ui-monospace, Menlo, Consolas, "Courier New", monospace; }
+    .kicker { letter-spacing:0.28em; font-size:11px; text-transform:uppercase; color:var(--soft); margin:0 0 8px; }
+    h1 { letter-spacing:0.18em; font-size:clamp(32px,7vw,52px); margin:0 0 8px; }
+    .meta { color:var(--soft); font-size:12px; margin:0 0 18px; }
+    .lead { margin:0 0 18px; }
+    .lead a { color:var(--ink); }
+    ol { list-style:none; margin:0; padding:0; border-top:3px solid var(--strong); }
+    a.item { display:block; text-decoration:none; color:inherit; border-bottom:1px solid var(--rule);
+      padding:12px 0; font-size:15px; }
+    a.item:hover { text-decoration:underline; }
+    .when { color:var(--soft); font-size:12px; }
+    footer { margin-top:22px; font-size:11px; color:var(--soft); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="kicker">Hourly Wire · Archive</p>
+    <h1>整点电讯</h1>
+    <p class="meta">过往版本 · 保留最近 48 期</p>
+    <p class="lead"><a href="../global-hot-news.html">查看最新一版</a></p>
+    <ol>
+      <li><a class="item" href="20261125-19.html">2026-11-25 19:00 版 · 第20期<div class="when">2026-11-25 19:00 UTC+8</div></a></li>
+      <li><a class="item" href="20261125-18.html">2026-11-25 18:00 版 · 第19期<div class="when">2026-11-25 18:00 UTC+8</div></a></li>
+      <li><a class="item" href="20261125-17.html">2026-11-25 17:00 版 · 第18期<div class="when">2026-11-25 17:00 UTC+8</div></a></li>
+    </ol>
+    <footer>每小时重排一版。链接指向当时归档的静态副本。</footer>
+  </div>
+</body>
+</html>
