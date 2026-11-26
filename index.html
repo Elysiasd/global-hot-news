@@ -5,33 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="refresh" content="600">
   <meta name="color-scheme" content="light dark">
-  <title>整点电讯 · 2026-11-27 05:00 版</title>
+  <title>整点电讯 · 2026-11-27 07:00 版</title>
   <style>
     :root {
-      --bg: #f3efe4;
-      --paper: #faf6eb;
-      --ink: #161410;
-      --ink-soft: #5a554b;
-      --rule: #c9c1b0;
-      --rule-strong: #161410;
-      --flash: #9b1c1c;
-      --flash-bg: #9b1c1c;
-      --flash-ink: #fff8f0;
-      --heat: #b54512;
+      --bg: #F3EEE6;
+      --paper: #F8F5EF;
+      --paper-shade: #EBE6DC;
+      --ink: #1C1915;
+      --ink-soft: #5A544C;
+      --rule: #C9C2B6;
+      --rule-strong: #1C1915;
+      --accent: #9A3412;
+      --flash: #9A3412;
+      --flash-bg: #9A3412;
+      --flash-ink: #FFF8F0;
+      --heat: #9A3412;
+      --link: #9A3412;
       --chip: transparent;
       --shadow: none;
+      color-scheme: light;
     }
     html[data-theme="dark"] {
-      --bg: #10100e;
-      --paper: #171714;
-      --ink: #ece6d8;
-      --ink-soft: #b3ab9c;
-      --rule: #3a372f;
-      --rule-strong: #ece6d8;
-      --flash: #e07a6a;
-      --flash-bg: #8a2420;
-      --flash-ink: #fff6ee;
-      --heat: #e0a15a;
+      --bg: #1C1915;
+      --paper: #26211C;
+      --paper-shade: #161310;
+      --ink: #F3EEE6;
+      --ink-soft: #C4BDB2;
+      --rule: #4A433B;
+      --rule-strong: #F3EEE6;
+      --accent: #9A3412;
+      --flash: #9A3412;
+      --flash-bg: #9A3412;
+      --flash-ink: #FFF8F0;
+      --heat: #E86A3A;
+      --link: #E86A3A;
+      color-scheme: dark;
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
@@ -42,7 +50,8 @@
       line-height: 1.55;
       min-height: 100vh;
     }
-    a { color: inherit; }
+    a { color: var(--link); }
+    a:hover { text-decoration: underline; }
     button { font: inherit; color: inherit; }
     .wrap { width: min(860px, calc(100% - 32px)); margin: 0 auto; }
     .mono, .kicker, .edition, .meta-line, .stamp, .cat, .heat, .src, .tab, .sort, .theme-btn, .flash-label, .watch-btn, footer.site, .archive-link {
@@ -50,7 +59,7 @@
     }
     header.mast {
       padding: 28px 0 16px;
-      border-bottom: 3px solid var(--rule-strong);
+      border-bottom: 3px solid var(--accent);
       margin-bottom: 0;
     }
     .mast-top {
@@ -100,7 +109,7 @@
       display: inline-block;
       font-size: 12px;
     }
-    .theme-btn:hover, .archive-link:hover { border-color: var(--ink); }
+    .theme-btn:hover, .archive-link:hover { border-color: var(--accent); color: var(--link); }
     .mast-actions { display: flex; flex-wrap: wrap; gap: 8px; }
     .flash {
       background: var(--flash-bg);
@@ -140,10 +149,11 @@
       font-size: 12px;
     }
     .tab[aria-selected="true"], .sort[aria-pressed="true"] {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
+      background: var(--accent);
+      color: var(--flash-ink);
+      border-color: var(--accent);
     }
+    .tab[aria-selected="true"] .n { opacity: 0.9; }
     .tab .n { margin-left: 4px; opacity: 0.75; }
     .wire { padding: 0 0 36px; }
     .dispatch {
@@ -181,7 +191,7 @@
       font-weight: 700;
       margin: 0;
     }
-    .oh a { text-decoration: none; }
+    .oh a { text-decoration: none; color: var(--link); }
     .oh a:hover { text-decoration: underline; }
     .zh {
       margin: 4px 0 0;
@@ -200,7 +210,7 @@
       line-height: 26px;
       text-align: center;
     }
-    .watch-btn[aria-pressed="true"] { border-color: var(--ink); }
+    .watch-btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
     .empty-hint {
       padding: 28px 0;
       color: var(--ink-soft);
@@ -213,7 +223,16 @@
       font-size: 11px;
       line-height: 1.6;
     }
-    footer.site a { color: var(--ink); }
+    footer.site a { color: var(--link); }
+    .flag-breaking {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--flash-ink);
+      background: var(--accent);
+      padding: 1px 6px;
+      line-height: 1.4;
+    }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     @media (max-width: 640px) {
       .wrap { width: calc(100% - 24px); }
       .dispatch { grid-template-columns: 1fr auto; }
@@ -263,8 +282,8 @@
 
   <script id="news-data" type="application/json">
 {
-  "updated": "2026-11-27 05:00 UTC+8",
-  "updated_iso": "2026-11-27T05:00:00+08:00",
+  "updated": "2026-11-27 07:00 UTC+8",
+  "updated_iso": "2026-11-27T07:00:00+08:00",
   "timezone": "UTC+8",
   "refresh_seconds": 600,
   "stories": [
@@ -314,6 +333,23 @@
       "url": "https://www.arabnews.com/saudi-arabia/houthi-attack-on-saudi-arabias-jazan-refinery-kills-nepali-worker-3014153",
       "published": "2026-11-27 02:49 UTC+8（按沙特时间26日21:49更新换算）",
       "published_iso": "2026-11-27T02:49:00+08:00",
+      "time_precision": "minute",
+      "heat": 4,
+      "breaking": false,
+      "focus": null
+    },
+    {
+      "id": "trump-tsmc-arizona-dec4",
+      "category": "社会政治",
+      "headline_original": "트럼프, 내달 4일 애리조나 TSMC 반도체공장 기공식 참석",
+      "headline_original_verified": true,
+      "headline": "特朗普定于12月4日出席台积电台皮工厂五期扩建开工仪式",
+      "lang": "ko",
+      "summary": "韩联社11月27日报道，特朗普定于12月4日前往亚利桑那州，在台积电新建晶圆厂开工仪式上发表讲话。韩联社援引白宫和台积电称，此次仪式标志台积电台皮生产设施扩建第五阶段开工。台积电今年7月宣布再向美国追加投资1000亿美元，累计对美生产设施投资承诺达到2650亿美元。白宫称该扩建将创造1万个直接就业岗位和1.1万个间接就业岗位，目前工地已有逾1.2万个建设相关岗位。报道并转述美联社指出，台积电台皮工厂始建于拜登政府时期，并曾获得《芯片与科学法》财政支持。",
+      "source": "韩联社",
+      "url": "https://www.yna.co.kr/view/AKR20261127003800071",
+      "published": "2026-11-27 04:18 UTC+8（韩国时间05:18）",
+      "published_iso": "2026-11-27T04:18:00+08:00",
       "time_precision": "minute",
       "heat": 4,
       "breaking": false,
@@ -383,6 +419,23 @@
       "published": "2026-11-26 23:55 UTC+8",
       "published_iso": "2026-11-26T23:55:00+08:00",
       "time_precision": "minute",
+      "heat": 3,
+      "breaking": false,
+      "focus": null
+    },
+    {
+      "id": "kimetsu-hinokami2-ps-tournaments",
+      "category": "游戏",
+      "headline_original": "PlayStation®5のイベント機能「PlayStation® Tournaments」への対応が決定！",
+      "headline_original_verified": true,
+      "headline": "《鬼灭之刃 火之神血风谭2》官方：PS5版将支持PlayStation Tournaments",
+      "lang": "ja",
+      "summary": "《鬼灭之刃 火之神血风谭2》官方11月27日宣布，PlayStation 5版将支持Sony的PlayStation Tournaments功能，玩家可从游戏内直接报名参加线上赛事。官方称该功能仅在PS5版实装，并计划定期举办向成绩靠前玩家发放游戏内物品奖励的比赛；更多细节将在官方网站和官方X陆续公布。",
+      "source": "鬼灭之刃 火之神血风谭2（官方）",
+      "url": "https://game.kimetsu.com/hinokami2/switch2/news/?id=68201",
+      "published": "2026-11-27 UTC+8（官方公告日期）",
+      "published_iso": "2026-11-27T00:00:00+08:00",
+      "time_precision": "day",
       "heat": 3,
       "breaking": false,
       "focus": null
@@ -497,13 +550,13 @@
       "id": "us-thanksgiving-storm",
       "category": "其他",
       "lang": "en",
-      "headline_original": "Major Thanksgiving storms in US disrupt flights and leave 750,000 customers without power",
-      "headline": "美国感恩节风暴停电升至逾75万户，切萨皮克湾大桥一度关闭",
-      "summary": "BBC直播页更新称，美国感恩节强风暴导致停电用户升至逾75万，以东海岸为主，其中弗吉尼亚逾19万户、马里兰约17.5万户、密苏里约12.4万户。近400架航班取消、约1200架延误。马里兰州切萨皮克湾大桥因强风一度双向关闭；蒙哥马利县有两人在大树压塌屋顶后获救，未受伤。弗吉尼亚一带阵风据报达70至80英里/小时。纽约第100届梅西感恩节游行仍推迟至周六。",
+      "headline_original": "Major US storms snarl air travel as more than 800,000 left in the dark on Thanksgiving holiday",
+      "headline": "美国感恩节风暴停电升至逾84万户，特朗普称将“考虑”东海岸紧急拨款",
+      "summary": "BBC直播页更新称，美国感恩节强风暴导致停电用户升至逾84万，以东海岸为主，中西部密苏里和伊利诺伊也有停电；其中宾夕法尼亚逾18万户，马里兰约17.3万户，弗吉尼亚约16.7万户。近400架航班取消、逾1000架延误。华盛顿里根国家机场跑道因潮水上涨被淹；马里兰供水机构呼吁近200万用户仅作必要用水，并称目前水质安全、无需煮沸。特朗普在海湖庄园被问及是否为东海岸释放紧急资金时说“我们会考虑这一点”（We’re going to look at that）。纽约第100届梅西感恩节游行仍推迟至周六。",
       "source": "BBC News",
       "url": "https://www.bbc.com/news/live/ck782zj6dnwet",
-      "published": "2026-11-27 04:18 UTC+8（直播页更新）",
-      "published_iso": "2026-11-27T04:18:00+08:00",
+      "published": "2026-11-27 06:32 UTC+8（直播页更新）",
+      "published_iso": "2026-11-27T06:32:00+08:00",
       "heat": 4
     },
     {
@@ -1935,40 +1988,6 @@
       "focus": "OpenAI"
     },
     {
-      "headline_original_verified": true,
-      "time_precision": "datetime",
-      "breaking": false,
-      "focus": null,
-      "id": "umamusume-ai-clone-removed",
-      "category": "游戏",
-      "lang": "en",
-      "headline_original": "Fans report Umamusume: Pretty Derby AI clone brimming with ads, Cygames gets it taken offline",
-      "headline": "《赛马娘》AI山寨游戏广告泛滥遭玩家举报，已从Google Play下架",
-      "summary": "HIFI Publishers开发的《Anime Racing Academy》角色设计与《赛马娘》高度雷同甚至直接照搬，且每个操作都弹广告；玩家集体举报并通报Cygames后，Eurogamer称该游戏在Google Play已无法搜索到。",
-      "source": "Eurogamer",
-      "url": "https://www.eurogamer.net/umamusame-pretty-derby-ai-clone-taken-off-mobile-after-reports",
-      "published": "2026-11-26 21:15 UTC+8",
-      "published_iso": "2026-11-26T21:15:00+08:00",
-      "heat": 2
-    },
-    {
-      "headline_original_verified": true,
-      "time_precision": "date",
-      "breaking": false,
-      "focus": null,
-      "id": "witcher3-patch-502",
-      "category": "游戏",
-      "lang": "en",
-      "headline_original": "Patch 5.02 for The Witcher 3: Wild Hunt — Remastered is live!",
-      "headline": "《巫师3：狂猎》重制版5.02补丁上线：修复无脸NPC、模组清空背包等问题并调整技能平衡",
-      "summary": "CD Projekt Red宣布5.02补丁登陆PC、PS5、Xbox Series X|S和Switch 2，修复安装/卸载模组可能清空商人与杰洛特物品栏、角色缺失面部、无限读取等问题，下调多项突变和技能数值，并新增32:9超宽屏支持与拍照模式改进。",
-      "source": "CD Projekt Red 官方",
-      "url": "https://www.thewitcher.com/us/en/news/52162/patch-5-02-for-the-witcher-3-wild-hunt-remastered-is-live",
-      "published": "2026-11-26 UTC+8（官方当日发布）",
-      "published_iso": "2026-11-26T20:00:00+08:00",
-      "heat": 2
-    },
-    {
       "time_precision": "datetime",
       "breaking": false,
       "headline_original_verified": true,
@@ -1986,10 +2005,10 @@
       "heat": 2
     }
   ],
-  "edition_label": "2026-11-27 05:00 版",
-  "edition_no_label": "第6期",
-  "edition_slug": "20261127-05",
-  "edition_no": 6
+  "edition_label": "2026-11-27 07:00 版",
+  "edition_no_label": "第8期",
+  "edition_slug": "20261127-07",
+  "edition_no": 8
 }
   </script>
   <script>
@@ -2170,7 +2189,8 @@
             '<div class="stamp">' + escapeHtml(shortTime(s)) + "</div>" +
             '<div class="body">' +
             '<div class="row-meta"><span class="cat">' + escapeHtml(s.category || "") +
-            '</span><span class="heat" title="热度">' + heatMarks(s.heat) + "</span></div>" +
+            '</span>' + (s.breaking ? '<span class="flag-breaking">突发</span>' : '') +
+            '<span class="heat" title="热度">' + heatMarks(s.heat) + "</span></div>" +
             '<h2 class="oh"><a href="' + escapeHtml(s.url) + '" target="_blank" rel="noopener noreferrer">' +
             escapeHtml(orig) + "</a></h2>" + zh +
             '<p class="sum">' + escapeHtml(s.summary || "") + "</p>" +

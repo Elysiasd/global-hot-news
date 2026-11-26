@@ -6,9 +6,17 @@
   <meta name="color-scheme" content="light dark">
   <title>整点电讯 · 过往版本</title>
   <style>
-    :root { --bg:#f3efe4; --ink:#161410; --soft:#5a554b; --rule:#c9c1b0; --strong:#161410; }
+    :root {
+      --bg:#F3EEE6; --paper:#F8F5EF; --ink:#1C1915; --soft:#5A544C;
+      --rule:#C9C2B6; --strong:#1C1915; --accent:#9A3412; --link:#9A3412;
+      color-scheme: light;
+    }
     @media (prefers-color-scheme: dark) {
-      :root { --bg:#10100e; --ink:#ece6d8; --soft:#b3ab9c; --rule:#3a372f; --strong:#ece6d8; }
+      :root {
+        --bg:#1C1915; --paper:#26211C; --ink:#F3EEE6; --soft:#C4BDB2;
+        --rule:#4A433B; --strong:#F3EEE6; --accent:#9A3412; --link:#E86A3A;
+        color-scheme: dark;
+      }
     }
     body { margin:0; background:var(--bg); color:var(--ink);
       font-family:"Palatino Linotype", Palatino, "Songti SC", "Noto Serif SC", Georgia, serif; }
@@ -18,13 +26,16 @@
     h1 { letter-spacing:0.18em; font-size:clamp(32px,7vw,52px); margin:0 0 8px; }
     .meta { color:var(--soft); font-size:12px; margin:0 0 18px; }
     .lead { margin:0 0 18px; }
-    .lead a { color:var(--ink); }
-    ol { list-style:none; margin:0; padding:0; border-top:3px solid var(--strong); }
-    a.item { display:block; text-decoration:none; color:inherit; border-bottom:1px solid var(--rule);
+    .lead a { color:var(--link); }
+    a { color:var(--link); }
+    ol { list-style:none; margin:0; padding:0; border-top:3px solid var(--accent); }
+    a.item { display:block; text-decoration:none; color:var(--ink); border-bottom:1px solid var(--rule);
       padding:12px 0; font-size:15px; }
     a.item:hover { text-decoration:underline; }
     .when { color:var(--soft); font-size:12px; }
     footer { margin-top:22px; font-size:11px; color:var(--soft); }
+    footer a { color:var(--link); }
+    :focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
   </style>
 </head>
 <body>
@@ -34,6 +45,7 @@
     <p class="meta">过往版本 · 保留最近 48 期</p>
     <p class="lead"><a href="../global-hot-news.html">查看最新一版</a></p>
     <ol>
+      <li><a class="item" href="20261127-07.html">2026-11-27 07:00 版 · 第8期<div class="when">2026-11-27 07:00 UTC+8</div></a></li>
       <li><a class="item" href="20261127-05.html">2026-11-27 05:00 版 · 第6期<div class="when">2026-11-27 05:00 UTC+8</div></a></li>
       <li><a class="item" href="20261127-04.html">2026-11-27 04:00 版 · 第5期<div class="when">2026-11-27 04:00 UTC+8</div></a></li>
       <li><a class="item" href="20261127-03.html">2026-11-27 03:00 版 · 第4期<div class="when">2026-11-27 03:00 UTC+8</div></a></li>
