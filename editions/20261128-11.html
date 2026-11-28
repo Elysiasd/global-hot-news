@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="600">
+  <meta name="color-scheme" content="light dark">
+  <title>整点电讯 · 2026-11-28 11:00 版</title>
+  <style>
+    :root {
+      --bg: #F3EEE6;
+      --paper: #F8F5EF;
+      --paper-shade: #EBE6DC;
+      --ink: #1C1915;
+      --ink-soft: #5A544C;
+      --rule: #C9C2B6;
+      --rule-strong: #1C1915;
+      --accent: #9A3412;
+      --flash: #9A3412;
+      --flash-bg: #9A3412;
+      --flash-ink: #FFF8F0;
+      --heat: #9A3412;
+      --link: #9A3412;
+      --chip: transparent;
+      --shadow: none;
+      color-scheme: light;
+    }
+    html[data-theme="dark"] {
+      --bg: #1C1915;
+      --paper: #26211C;
+      --paper-shade: #161310;
+      --ink: #F3EEE6;
+      --ink-soft: #C4BDB2;
+      --rule: #4A433B;
+      --rule-strong: #F3EEE6;
+      --accent: #9A3412;
+      --flash: #9A3412;
+      --flash-bg: #9A3412;
+      --flash-ink: #FFF8F0;
+      --heat: #E86A3A;
+      --link: #E86A3A;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Palatino Linotype", Palatino, "Iowan Old Style", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    a { color: var(--link); }
+    a:hover { text-decoration: underline; }
+    button { font: inherit; color: inherit; }
+    .wrap { width: min(860px, calc(100% - 32px)); margin: 0 auto; }
+    .mono, .kicker, .edition, .meta-line, .stamp, .cat, .heat, .src, .tab, .sort, .theme-btn, .flash-label, .watch-btn, footer.site, .archive-link {
+      font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Courier New", monospace;
+    }
+    header.mast {
+      padding: 28px 0 16px;
+      border-bottom: 3px solid var(--accent);
+      margin-bottom: 0;
+    }
+    .mast-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .kicker {
+      letter-spacing: 0.28em;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin: 0 0 8px;
+    }
+    h1 {
+      font-weight: 700;
+      font-size: clamp(36px, 8vw, 58px);
+      line-height: 1;
+      letter-spacing: 0.18em;
+      margin: 0;
+    }
+    .edition {
+      margin-top: 10px;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .edition strong { font-weight: 700; }
+    .meta-line {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      color: var(--ink-soft);
+      font-size: 12px;
+    }
+    .meta-line strong { color: var(--ink); font-weight: 650; }
+    .countdown { font-variant-numeric: tabular-nums; }
+    .theme-btn, .archive-link {
+      border: 1px solid var(--rule);
+      background: transparent;
+      border-radius: 0;
+      padding: 7px 12px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+    }
+    .theme-btn:hover, .archive-link:hover { border-color: var(--accent); color: var(--link); }
+    .mast-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .flash {
+      background: var(--flash-bg);
+      color: var(--flash-ink);
+      padding: 14px 16px 12px;
+      margin: 16px 0 0;
+    }
+    .flash-label {
+      margin: 0 0 8px;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      font-weight: 700;
+    }
+    .flash ol { margin: 0; padding: 0; list-style: none; }
+    .flash li + li { border-top: 1px solid rgba(255,255,255,0.22); margin-top: 8px; padding-top: 8px; }
+    .flash a { display: block; text-decoration: none; color: inherit; }
+    .flash .oh { font-size: 18px; line-height: 1.3; font-weight: 700; }
+    .flash .zh { font-size: 13px; opacity: 0.9; margin-top: 3px; }
+    .flash .bm { font-size: 11px; opacity: 0.8; margin-top: 4px; letter-spacing: 0.02em; }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 16px 0 0;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--rule-strong);
+    }
+    .tabs, .sorts { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tab, .sort {
+      border: 1px solid var(--rule);
+      background: transparent;
+      border-radius: 0;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .tab[aria-selected="true"], .sort[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--flash-ink);
+      border-color: var(--accent);
+    }
+    .tab[aria-selected="true"] .n { opacity: 0.9; }
+    .tab .n { margin-left: 4px; opacity: 0.75; }
+    .wire { padding: 0 0 36px; }
+    .dispatch {
+      border-bottom: 1px solid var(--rule);
+      padding: 14px 0 13px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 8px 12px;
+      align-items: start;
+    }
+    .stamp {
+      font-size: 11px;
+      color: var(--ink-soft);
+      font-variant-numeric: tabular-nums;
+      padding-top: 4px;
+      white-space: nowrap;
+    }
+    .body { min-width: 0; }
+    .row-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .cat {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+    }
+    .heat { font-size: 11px; color: var(--heat); letter-spacing: 0.05em; white-space: nowrap; }
+    .oh {
+      font-size: 20px;
+      line-height: 1.3;
+      font-weight: 700;
+      margin: 0;
+    }
+    .oh a { text-decoration: none; color: var(--link); }
+    .oh a:hover { text-decoration: underline; }
+    .zh {
+      margin: 4px 0 0;
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+    .sum { margin: 7px 0 0; font-size: 14.5px; }
+    .src { margin: 6px 0 0; font-size: 11px; color: var(--ink-soft); }
+    .watch-btn {
+      border: 1px solid var(--rule);
+      background: transparent;
+      width: 28px; height: 28px;
+      padding: 0;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 26px;
+      text-align: center;
+    }
+    .watch-btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+    .empty-hint {
+      padding: 28px 0;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+    footer.site {
+      border-top: 1px solid var(--rule-strong);
+      padding: 16px 0 36px;
+      color: var(--ink-soft);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+    footer.site a { color: var(--link); }
+    .flag-breaking {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--flash-ink);
+      background: var(--accent);
+      padding: 1px 6px;
+      line-height: 1.4;
+    }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    @media (max-width: 640px) {
+      .wrap { width: calc(100% - 24px); }
+      .dispatch { grid-template-columns: 1fr auto; }
+      .stamp { grid-column: 1 / -1; padding-top: 0; }
+      h1 { letter-spacing: 0.12em; }
+      .oh { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="mast">
+      <div class="mast-top">
+        <div>
+          <p class="kicker">Hourly Wire · Asia/Shanghai · UTC+8</p>
+          <h1>整点电讯</h1>
+          <div class="edition"><strong id="edition-label"></strong> · <span id="edition-no"></span></div>
+        </div>
+        <div class="mast-actions">
+          <a class="archive-link" href="index.html">过往版本</a>
+          <a class="archive-link" href="../global-hot-news.html">最新一版</a>
+          <button class="theme-btn" id="theme-toggle" type="button">切换深色模式</button>
+        </div>
+      </div>
+      <div class="meta-line">
+        <span>最后更新 <strong id="updated-label"></strong></span>
+        <span class="countdown">下次自动刷新 <strong id="countdown">10:00</strong></span>
+      </div>
+    </header>
+
+    <section class="flash" id="flash" hidden>
+      <p class="flash-label">FLASH · 重大突发</p>
+      <ol id="flash-list"></ol>
+    </section>
+
+    <div class="toolbar">
+      <div class="tabs" id="tabs" role="tablist" aria-label="新闻分类"></div>
+      <div class="sorts" aria-label="排序">
+        <button class="sort" type="button" data-sort="heat" aria-pressed="true">按热度</button>
+        <button class="sort" type="button" data-sort="time" aria-pressed="false">按时间</button>
+      </div>
+    </div>
+
+    <section class="wire" id="wire" aria-live="polite"></section>
+    <footer class="site">每小时重排一版，标题保留原文并链接出处。中文标题与摘要为编译。热度为编辑主观评估（1–5）。「我的关注」自动收录 OpenAI 与英雄联盟相关新闻，也可点击星标另行加入（仅保存在本机浏览器）。页面每 10 分钟自动刷新。查看<a href="index.html">过往版本</a>。</footer>
+  </div>
+
+  <script id="news-data" type="application/json">
+{
+  "updated": "2026-11-28 11:00 UTC+8",
+  "updated_iso": "2026-11-28T11:00:00+08:00",
+  "timezone": "UTC+8",
+  "refresh_seconds": 600,
+  "stories": [
+    {
+      "id": "us-pacific-archer-disabled",
+      "category": "社会政治",
+      "headline_original": "US disables ship trying to leave Iran, as Tehran vows to confront blockade",
+      "headline_original_verified": true,
+      "headline": "美军称在阿曼湾使一艘试图突破对伊封锁的商船失去动力，伊朗顾问称将打破禁运",
+      "lang": "en",
+      "summary": "路透社报道，美国中央司令部周五发表声明称，帕劳籍商船M/V Pacific Archer 11月26日从伊朗阿巴斯港出发后，在多次警告下仍试图突破美国对伊朗港口的海上封锁；美军飞机在阿曼湾向该船船尾发射精确弹药，使其推进系统失效，民用船员没有受伤。伊朗最高领袖顾问莫赫贝尔对官方媒体表示，“霍尔木兹海峡不会重新开放，我们也不会允许封锁继续存在”，但未说明如何打破禁运。报道称美国今年7月恢复了对伊朗港口的海上封锁，本月早些时候还宣布成立“铁门特遣队”，限制武器和受制裁物资经陆路和里海流动。",
+      "source": "Arab News（路透社）",
+      "url": "https://www.arabnews.com/middle-east/us-disables-ship-trying-to-leave-iran-as-tehran-vows-to-confront-blockade-3014303",
+      "published": "2026-11-28 05:14 UTC+8",
+      "published_iso": "2026-11-28T05:14:00+08:00",
+      "time_precision": "minute",
+      "heat": 5,
+      "breaking": false,
+      "focus": null
+    },
+    {
+      "id": "openai-apple-countersuit",
+      "category": "理工科",
+      "focus": "OpenAI",
+      "headline_original": "OpenAI countersues Apple for stealing trade secrets",
+      "headline_original_verified": true,
+      "headline": "OpenAI反诉苹果窃取商业秘密，并指责其阻碍硬件供应商合作",
+      "lang": "en",
+      "summary": "路透社报道，OpenAI周五在加州联邦法院对苹果提出反诉，指控苹果窃取其商业秘密，并劝阻硬件供应商参与OpenAI未来设备项目。此事发生在苹果今年7月起诉OpenAI及前苹果员工Tang Tan、Chang Liu，指控他们盗用商业秘密以助力OpenAI消费硬件业务之后。OpenAI称，苹果重新聘用了一名仅在OpenAI工作六个月、接触过新设备方案与未来硬件路线图的前员工，并在诉状中写道“现在看来，窃取这些文件可能就是他加入OpenAI的原因”。OpenAI还称已有400名苹果员工转投本公司，并指责苹果通过鼓励员工在个人设备上办公、离职后仍访问个人账户来“围堵”跳槽者。苹果与OpenAI均未立即回应路透社置评请求。",
+      "source": "Reuters",
+      "url": "https://www.reuters.com/5f374b32b07b/technology/openai-countersues-apple-stealing-trade-secrets-ft-reports-2026-11-27/",
+      "published": "2026-11-28 02:28 UTC+8",
+      "published_iso": "2026-11-28T02:28:00+08:00",
+      "time_precision": "minute",
+      "heat": 5,
+      "breaking": false
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "a-share-1127-afternoon-surge",
+      "category": "其他",
+      "lang": "zh-Hans",
+      "heat": 5,
+      "headline_original": "创业板指、科创50、北证50均涨逾11%",
+      "headline": "A股午后暴涨：创业板指、科创50、北证50盘中均涨逾11%，沪指涨超3.6%",
+      "summary": "财联社13:50快讯，创业板指盘中涨逾11.01%、科创50涨超14%、北证50涨超12%，沪指涨3.61%、深成指涨6.86%，半导体、大基金系、电子化学品领涨；中新网报道寒武纪股价重回1000元以上。新浪财经行情显示，收盘创业板指涨11.61%、科创50涨15.07%、沪指涨3.73%报3606.49点。此前国务院常务会议提出“加力发挥‘国家队’稳市作用”。",
+      "source": "财联社；另见中新网、新浪财经行情",
+      "url": "https://www.cls.cn/detail/2546410",
+      "published": "2026-11-27 13:50 UTC+8",
+      "published_iso": "2026-11-27T13:50:38+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "taiwan-nuclear-referendum-local-elections",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 4,
+      "headline_original": "Polls open for Taiwan's '9-in-1' elections, nuclear referendum",
+      "headline": "【更新】台湾九合一选举投票进行中，蒋万安、沈伯洋、苏巧慧、李四川等已投票；16时截止后立即开票",
+      "summary": "中央社英文版“焦点台湾”报道，台湾28日上午8时起举行“九合一”地方选举及“废除非核家园”公投，投票至下午4时，共选出逾1.1万名地方公职，地方选举约1958万人有投票权。BBC中文直播显示，台北市长蒋万安（国民党）、对手沈伯洋（民进党）以及新北的苏巧慧、李四川，高雄的柯志恩等主要候选人上午已完成投票，各地投票大致顺利；国民党前副总统参选人赵少康预估投票率将破七成（2022年为67.7%）。据《自由时报》，中选会主委游盈隆推算开票作业不晚于当晚23时40分结束。公投须同意票多于不同意票且达全体投票权人四分之一方可通过。",
+      "source": "中央社（Focus Taiwan）；另见BBC中文直播、自由时报、半岛电视台",
+      "url": "https://focustaiwan.tw/politics/202611280002",
+      "published_iso": "2026-11-28T10:45:00+08:00",
+      "published": "2026-11-28 10:45 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "korea-post-hack-113k",
+      "category": "理工科",
+      "lang": "en",
+      "heat": 4,
+      "headline_original": "Internet Post Office hacked; personal data of at least 113,000 customers leaked",
+      "headline": "韩国“互联网邮局”遭黑客入侵，至少11.3万名客户姓名、地址、电话外泄",
+      "summary": "韩联社报道，韩国科学技术信息通信部下属邮政事业本部28日称，黑客通过手机版互联网邮局的“变更投递地点”服务，查看了11月17日至24日间挂号邮件收件人的姓名、地址和电话；仅分析一天的数据就确认113,855人信息外泄，全部规模仍在调查。邮政本部周三察觉异常并已报警，暂停相关服务并屏蔽海外IP访问手机网站，负责人朴仁焕公开致歉。",
+      "source": "韩联社（Yonhap）",
+      "url": "https://en.yna.co.kr/view/AEN20261128001400315",
+      "published_iso": "2026-11-28T10:38:00+08:00",
+      "published": "2026-11-28 10:38 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "victoria-election-day",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 4,
+      "headline_original": "Victorian election live: Liberal party costings reveal unannounced plan to scrap first home owner grant",
+      "headline": "澳大利亚维多利亚州今日大选：民调显示执政12年的工党恐下台，自由党领袖威尔逊有望成首位女州长",
+      "summary": "澳大利亚广播公司（ABC）报道，维州选举投票于当地时间28日8时至18时进行（北京时间5时至15时），约470万合资格选民中已有约一半提前或邮寄投票。州长卡罗尔（工党）寻求第四个任期，反对党领袖杰丝·威尔逊（自由党）试图终结工党12年执政；多项民调显示联盟党领先，但其选前两天公布含私有化、削减幼儿园开支等内容的预算方案引发争议。一国党预计得票率逾两成，绿党也寻求扩大席位，结果预计当地18时后陆续公布。",
+      "source": "ABC News（澳大利亚）；另见《卫报》直播",
+      "url": "https://www.abc.net.au/news/2026-11-28/victorian-election-live-updates-voting-results-seat-count/107418038",
+      "published_iso": "2026-11-28T08:47:00+08:00",
+      "published": "2026-11-28 08:47 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "OpenAI",
+      "id": "lenovo-preinstall-chatgpt-business-credits",
+      "category": "理工科",
+      "lang": "en",
+      "heat": 4,
+      "headline_original": "The world’s biggest PC maker now preloads ChatGPT on Windows 11 PCs like bloatware, and OpenAI pays businesses $100 a seat to use that copy",
+      "headline": "联想在部分Windows 11商用电脑上预装ChatGPT，OpenAI向通过预装应用开通Business的企业每席位最高补贴100美元额度",
+      "summary": "Windows Latest发现，联想已在部分新款Windows 11电脑（目前似乎仅限商用机型）上预装ChatGPT桌面应用。OpenAI帮助中心文件显示：已有ChatGPT Business工作区的企业通过合格设备上的预装应用登录，可一次性获得共100美元额度；通过预装应用新建工作区的，前90天内购买的每个合格席位可获100美元。额度存入工作区共享余额，60天内到期，不能抵扣订阅费，也不能换成API额度；自行下载安装的不符合条件。具体覆盖多少设备，OpenAI未披露。",
+      "source": "Windows Latest；OpenAI帮助中心；另见IT之家",
+      "url": "https://www.windowslatest.com/2026/11/28/the-worlds-biggest-pc-maker-lenovo-now-preloads-chatgpt-on-windows-11-pcs-like-bloatware-and-openai-pays-businesses-100-a-seat-to-use-that-copy/",
+      "published_iso": "2026-11-28T06:53:00+08:00",
+      "published": "2026-11-28 06:53 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "kuwait-summons-iran-envoy-italians-killed",
+      "category": "社会政治",
+      "lang": "zh-Hans",
+      "heat": 4,
+      "headline_original": "科威特召见伊朗大使 抗议伊“持续袭击”",
+      "headline": "无人机袭击致两名意大利人死亡，科威特召见伊朗大使抗议；意外长称调查确认无人机为伊朗制造",
+      "summary": "中新网报道，科威特外交部27日召见伊朗驻科大使，称伊朗26日以无人机袭击科威特一处重要设施，造成两名意大利公民死亡、一名科威特公民和一名巴基斯坦公民受伤，科方保留自卫权；伊朗外长阿拉格齐称事件疑点重重，伊朗武装部队否认当天发动袭击。半岛电视台直播报道，意大利外长塔亚尼称科威特调查确认涉事无人机为伊朗制造，德黑兰否认从本国领土发射，并提出愿与意、科两国组成调查委员会。",
+      "source": "中国新闻网；另见半岛电视台（Al Jazeera）直播",
+      "url": "https://www.chinanews.com.cn/gj/2026/11-28/10739097.shtml",
+      "published_iso": "2026-11-28T06:46:00+08:00",
+      "published": "2026-11-28 06:46 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "msf-gaza-clinic-strike",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 4,
+      "headline_original": "MSF GAZA: Israeli strike kills two MSF colleagues",
+      "headline": "无国界医生：以军空袭其加沙诊所致两名保安死亡，称系“直接命中”；以军称二人为哈马斯成员",
+      "summary": "无国界医生（MSF）发表声明称，27日晚以色列对其在加沙的一处诊所发动空袭，炸死两名担任保安的员工，使其在加沙遇难的员工增至17人；MSF称诊所标有明显标志、位置已告知以军，要求追责。据《中东之眼》，以军声明称两人（阿布·哈西拉、萨贝赫）为哈马斯成员，其中一人是武装派别炮兵指挥官，但未提供证据，并否认针对医疗设施。",
+      "source": "无国界医生（MSF）官方声明；另见半岛电视台、《中东之眼》",
+      "url": "https://prezly.msf.org.uk/msf-gaza-israeli-strike-kills-two-msf-colleagues",
+      "published_iso": "2026-11-28T06:19:00+08:00",
+      "published": "2026-11-28 06:19 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "nvidia-gb300-shanghai-alice-huang",
+      "category": "理工科",
+      "lang": "en",
+      "heat": 4,
+      "headline_original": "Restricted NVIDIA chips were installed at a Chinese data center linked to Alice Huang",
+      "headline": "彭博：受出口管制的英伟达GB300机柜现身上海一数据中心，项目与黄仁勋辞职风波中的Alice Huang有关联",
+      "summary": "Engadget援引彭博社报道，两家企业提交给中国监管部门的文件显示，上海“长三角项目”数据中心存在GB300 NVL72和GB200服务器机柜，其中上海硕耀以一台GB300 NVL72机柜作抵押获得约1400万美元贷款；彭博通过公开保修数据库将该机柜序列号追溯至台湾技嘉。美国出口规则要求此类Blackwell系统输华须获许可，设备如何运抵尚不清楚。上海硕耀与Alice Huang曾控股的新加坡云公司Megaspeed有业务往来；彭博称无证据显示Megaspeed直接转移芯片，Megaspeed否认违规，美国司法部正调查其是否违反出口规定。技嘉称依法合规经营，英伟达未立即回应。",
+      "source": "Engadget（援引彭博社）",
+      "url": "https://www.engadget.com/2329748/restricted-nvidia-chips-were-installed-at-a-chinese-data-center-linked-to-alice-huang/",
+      "published_iso": "2026-11-28T03:45:00+08:00",
+      "published": "2026-11-28 03:45 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "brokenblade-leaves-g2",
+      "category": "游戏",
+      "lang": "en",
+      "heat": 4,
+      "headline_original": "BrokenBlade Leaves G2 Esports After Five Years and 12 Titles",
+      "headline": "G2官宣上单BrokenBlade离队：效力五年554场、12座LEC冠军；传加盟Movistar KOI尚未官宣",
+      "summary": "G2 Esports在官方渠道发布告别视频，宣布合同到期的德国籍土耳其裔上单Sergen“BrokenBlade”Çelik离队，称“5年，554局，12座奖杯”。他2021年12月加盟G2，是LEC历史上夺冠最多的上单（12冠，仅次于队友Caps的18冠），连续五次参加MSI和全球总决赛，但未获国际赛冠军。去向方面，Sheep Esports此前援引消息人士称其已与Movistar KOI达成口头协议，多家媒体跟进，但相关俱乐部尚未官宣。",
+      "source": "G2 Esports官方（据Strafe、Pro-Gamer.fr）；去向消息源自Sheep Esports",
+      "url": "https://www.strafe.com/news/read/broken-blade-leaves-g2-esports-after-five-years-and-12-titles/",
+      "published_iso": "2026-11-28T00:38:00+08:00",
+      "published": "2026-11-28 00:38 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "OpenAI",
+      "id": "openai-athena-semantic-layer",
+      "category": "理工科",
+      "lang": "en",
+      "heat": 4,
+      "headline_original": "OpenAI is building \"Athena\" data platform to cut down on AI agent guesswork",
+      "headline": "【据报道】The Information：OpenAI正开发代号“Athena”的数据平台，让ChatGPT Work数据代理少“猜”多准",
+      "summary": "The Decoder援引The Information报道，OpenAI正在打造代号“Athena”的数据管理平台，类似“语义层”，为营收、客户数等业务指标提供统一定义，以提高AI代理处理企业数据的准确性；报道称至少一家客户认为ChatGPT Work的数据分析代理不够准确。知情人士称OpenAI还用Athena构建能收集、记录和更新业务规则的代理。平台仍处早期开发阶段，OpenAI未公布时间表或定价，也未就此置评。",
+      "source": "The Decoder（援引The Information）",
+      "url": "https://the-decoder.com/openai-is-building-athena-data-platform-to-cut-down-on-ai-agent-guesswork/",
+      "published_iso": "2026-11-28T00:05:00+08:00",
+      "published": "2026-11-28 00:05 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "silksong-sea-of-sorrow-dec11",
+      "category": "游戏",
+      "lang": "en",
+      "heat": 4,
+      "headline_original": "Silksong’s free expansion arrives next month.",
+      "headline": "《空洞骑士：丝之歌》首个大型扩展“悲伤之海”12月11日免费推出，Team Cherry还将发行三款独立游戏",
+      "summary": "The Verge报道，Team Cherry在27日晚的“Cherry Time!”发布会上宣布，《空洞骑士：丝之歌》首个扩展“Sea of Sorrow（悲伤之海）”将于12月11日推出，所有《丝之歌》玩家均可免费获得，内容包括新区域、Boss和工具等，官方称这是“前所未有的扩展”；工作室还将很快发行三款独立游戏。",
+      "source": "The Verge；Team Cherry官方博客；另见GameSpot",
+      "url": "https://www.theverge.com/news/1044004/hollow-knight-silksong-sea-of-sorrow-release-date",
+      "published_iso": "2026-11-27T23:26:00+08:00",
+      "published": "2026-11-27 23:26 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "uk-dwp-cyber-incident",
+      "category": "理工科",
+      "lang": "en",
+      "heat": 4,
+      "headline_original": "DWP ‘cyber incident’ knocks almost all pensions and benefits systems offline",
+      "headline": "【更新】英国就业及养老金部“严重网络事件”致养老金和福利系统下线，部长称暂无证据显示个人数据外泄",
+      "summary": "《卫报》报道，因“网络事件”，英国几乎所有养老金和福利系统无法使用，查询国家养老金、申请残障福利或通用福利金均无法办理；DWP称常规福利和养老金照常发放，但有民众反映周五上午预期款项未到账。路透社报道，就业及养老金大臣帕特·麦克法登称这是一起“严重网络事件”，调查仍在进行，迄今没有证据显示任何个人信息遭泄露；DWP正与国家网络安全中心（NCSC）合作。",
+      "source": "The Guardian；路透社（经CNA）；另见BBC",
+      "url": "https://www.theguardian.com/politics/2026/nov/27/dwp-cyber-incident-pensions-benefits-systems-offline",
+      "published": "2026-11-27 21:52 UTC+8",
+      "published_iso": "2026-11-27T21:52:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "usaf-cloud-one-breach",
+      "category": "理工科",
+      "lang": "en",
+      "heat": 4,
+      "headline_original": "Hackers breach U.S. Air Force flagship Cloud One computing platform",
+      "headline": "路透：黑客入侵美国空军旗舰云平台Cloud One，网络司令部介入评估损失",
+      "summary": "CNBC转载路透社报道，三名知情人士称，美国空军核心云计算平台Cloud One遭入侵，约一个月前在系统升级过程中被发现，已导致平台运行受到干扰；黑客身份、入侵范围及是否有数据被窃尚不清楚。Cloud One于2017年启动，整合微软、亚马逊、甲骨文和Alphabet四家云资源，承载人事薪酬、后勤维护及北美防空雷达数据汇总等应用。美国空军称不评论具体网络与系统的安全状况。",
+      "source": "CNBC（转载路透社）；另见Military Times、Bloomberg Law",
+      "url": "https://www.cnbc.com/2026/11/27/hackers-breach-us-air-force-flagship-cloud-one-computing-platform.html",
+      "published_iso": "2026-11-27T21:23:01+08:00",
+      "published": "2026-11-27 21:23 UTC+8"
+    },
+    {
+      "id": "karachi-building-collapse",
+      "category": "社会政治",
+      "headline_original": "Death toll in Pakistan building collapse rises to eight",
+      "headline": "【更新】卡拉奇在建楼房倒塌死亡升至8人、约10人仍失踪，搜救进入第三天",
+      "lang": "en",
+      "summary": "CNA援引法新社报道，卡拉奇俾路支区在建楼房倒塌事故死亡人数27日升至8人：事发当天寻获3具遗体、14人受伤，此后两天又寻获5具遗体；救援机构Rescue 1122发言人称约10人仍失踪。已有十多名官员因失职被停职，警方奉命逮捕楼房业主，周边多栋建筑被查封。此前DAWN报道该楼仅获批地面加一层却违建至六层。",
+      "source": "CNA（援引法新社）；另见DAWN",
+      "url": "https://www.channelnewsasia.com/asia/pakistan-karachi-building-collapse-death-toll-rise-6587796",
+      "published": "2026-11-27 20:54 UTC+8",
+      "published_iso": "2026-11-27T20:54:00+08:00",
+      "time_precision": "minute",
+      "heat": 4,
+      "breaking": false,
+      "headline_original_verified": true,
+      "focus": null
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "irgc-tanker-mine-hormuz",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 4,
+      "headline_original": "IRGC says oil tanker hits naval mine in Hormuz, another turns back",
+      "headline": "伊朗革命卫队称一艘油轮在霍尔木兹海峡触雷爆炸、另一艘折返；船名未公布，尚无独立证实",
+      "summary": "伊朗国际电视台及路透社（经《耶路撒冷邮报》转载）报道，伊朗伊斯兰革命卫队海军通过伊朗国家广播电视台（IRIB）发表声明称，两艘油轮27日上午试图从阿曼加纳姆岛以北的“未经授权航线”秘密通过海峡，其中一艘触雷爆炸，另一艘被迫折返；声明称近日试图走未授权航线的油轮“明显减少”。新华社也报道了该声明。截至发稿，油轮名称、船旗与伤亡情况未公布；英国海上贸易行动办公室（UKMTO）此前的通报未证实伊方所称触雷事件。",
+      "source": "Iran International；另见路透社（经The Jerusalem Post）、新华社",
+      "url": "https://www.iranintl.com/en/202611274906",
+      "published": "2026-11-27 19:24 UTC+8",
+      "published_iso": "2026-11-27T19:24:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "iran-navy-retakes-tankers",
+      "category": "社会政治",
+      "lang": "zh-Hans",
+      "heat": 4,
+      "headline_original": "伊朗海军司令称夺回两艘被美军劫持的油轮",
+      "headline": "伊朗海军司令称夺回两艘被美军劫持的油轮，重申霍尔木兹海峡继续关闭",
+      "summary": "中新网援引央视新闻：伊朗海军司令伊拉尼27日称，伊朗海军突击队夺回两艘此前被美军劫持的油轮，并表示霍尔木兹海峡将继续保持关闭；伊朗军队总司令哈塔米24日曾称七项条件落实前不会开放海峡。美方暂未回应（据该稿）。",
+      "source": "中国新闻网（央视新闻客户端）",
+      "url": "https://www.chinanews.com.cn/gj/2026/11-27/10738962.shtml",
+      "published": "2026-11-27 19:18 UTC+8",
+      "published_iso": "2026-11-27T19:18:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "wbg-clearlove-leaves",
+      "category": "游戏",
+      "lang": "zh-Hans",
+      "heat": 4,
+      "headline_original": "WBG发布人员变动公告：教练Clearlove即日起正式离队",
+      "headline": "WBG官宣主教练Clearlove（明凯）解约离队，教练组与首发几乎全部换血",
+      "summary": "虎扑转载WBG英雄联盟分部公告：教练明凯（Clearlove）经友好协商与俱乐部解除合约，即日起卸任教练一职、正式离队；他于2026年第三赛段加盟WBG出任主教练。WBG当天已先后官宣Elk、Zika、Xiaohao、Moham、Jwei五名选手及Shine、Tselin两名教练离队。",
+      "source": "新浪新闻（WBG官方微博同步）",
+      "url": "https://www.sina.cn/news/detail/5369941148304148.html",
+      "published": "2026-11-27 19:00 UTC+8",
+      "published_iso": "2026-11-27T19:00:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "jdg-xiaofang-leave",
+      "category": "游戏",
+      "lang": "zh-Hans",
+      "heat": 4,
+      "headline_original": "【JDG京东电子竞技俱乐部选手变动公告】即日起打野选手方哲宇（ID：xiaofang）正式断开连接",
+      "headline": "JDG官宣打野xiaofang（方哲宇）即日起离队",
+      "summary": "JDG官方微博11月27日19:00公告，经选手与俱乐部双方友好协商，在充分尊重选手个人意愿的前提下，即日起打野选手方哲宇（ID：xiaofang）正式断开连接。公告称其于八月加盟、同行时间较短，并感谢其训练与比赛中的投入。这是JDG当晚继GALA、HongQ、JunJia之后官宣离队的第四名选手。",
+      "source": "JDG官方微博",
+      "url": "https://weibo.com/6174976862/RtluidX1J",
+      "published": "2026-11-27 19:00 UTC+8",
+      "published_iso": "2026-11-27T19:00:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "netanyahu-trial-judges",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 4,
+      "headline_original": "Israeli justice system at tipping point as judges call for end to Netanyahu trial",
+      "headline": "审理内塔尼亚胡腐败案的法官罕见呼吁检方终止诉讼，以色列司法体系面临转折点",
+      "summary": "《卫报》报道，主审内塔尼亚胡受贿、欺诈和背信三起案件的法官呼吁检方结束诉讼，这一罕见介入令总检察长面临重大政治抉择；批评者担心无判决撤案将为媒体独立等问题树立有害先例。",
+      "source": "The Guardian",
+      "url": "https://www.theguardian.com/world/2026/nov/27/israeli-justice-system-judges-call-drop-netanyahu-charges",
+      "published": "2026-11-27 18:48 UTC+8",
+      "published_iso": "2026-11-27T18:48:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "jdg-junjia-leave",
+      "category": "游戏",
+      "lang": "zh-Hans",
+      "heat": 4,
+      "headline_original": "【JDG京东电子竞技俱乐部选手变动公告】即日起打野选手余峻嘉（ID：JunJia）正式断开连接",
+      "headline": "JDG官宣打野JunJia（余峻嘉）即日起离队",
+      "summary": "JDG官方微博11月27日18:30公告，经选手与俱乐部双方友好协商，在充分尊重选手个人意愿的前提下，即日起打野选手余峻嘉（ID：JunJia）正式断开连接。公告感谢其在队一年间对比赛的专注，并祝其职业生涯顺利。同晚俱乐部还分条官宣了GALA、HongQ、xiaofang及教练Xiaobai离队。",
+      "source": "JDG官方微博",
+      "url": "https://weibo.com/6174976862/Rtli7f1pt",
+      "published": "2026-11-27 18:30 UTC+8",
+      "published_iso": "2026-11-27T18:30:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "jdg-hongq-leaves",
+      "category": "游戏",
+      "lang": "zh-Hans",
+      "heat": 4,
+      "headline_original": "JDG发布人员变动公告：中单选手HongQ即日起正式离队",
+      "headline": "JDG再官宣中单HongQ（蔡明宏）离队，半小时内连送下路、中单两名主力",
+      "summary": "虎扑游戏电竞资讯转载JDG公告：经双方友好协商、尊重选手个人意愿，JDG中单选手蔡明宏（HongQ）即日起正式离队，俱乐部祝愿其“我们赛场见”。这是JDG继GALA之后当天第二位官宣离队的主力，去向未公布。",
+      "source": "直播吧（转载JDG官方公告）",
+      "url": "https://news.zhibo8.com/game/2026-11-27/6b0954c9172c8native.htm",
+      "published": "2026-11-27 18:02 UTC+8",
+      "published_iso": "2026-11-27T18:02:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "jdg-gala-leaves",
+      "category": "游戏",
+      "lang": "zh-Hans",
+      "heat": 4,
+      "headline_original": "JDG发布人员变动公告：下路选手GALA正式断开连接",
+      "headline": "JDG官宣下路GALA（陈伟）即日起离队，结束担任队长的一个赛季",
+      "summary": "虎扑游戏电竞资讯、直播吧援引JDG官方公告，经双方友好协商、尊重选手个人意愿，JDG京东电子竞技俱乐部下路选手陈伟（GALA）即日起正式“断开连接”；公告提到他在队一年间担任队长。GALA于2025年12月从iG加盟JDG，下一站尚未公布。",
+      "source": "直播吧（转载JDG官方公告）",
+      "url": "https://news.zhibo8.com/game/2026-11-27/6b0953cee68fcnative.htm",
+      "published": "2026-11-27 17:59 UTC+8",
+      "published_iso": "2026-11-27T17:59:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "iran-navy-hormuz-closed",
+      "category": "社会政治",
+      "lang": "zh-Hans",
+      "heat": 4,
+      "headline_original": "伊朗海军司令：霍尔木兹海峡将保持封锁状态",
+      "headline": "伊朗海军司令伊拉尼：“既定指令”是霍尔木兹海峡必须保持封锁状态，誓言向美国复仇",
+      "summary": "据央视新闻（新浪财经7×24转载），伊朗军队海军司令伊拉尼当地时间27日表示，伊朗将让美国为杀害伊朗人民付出代价，海军与革命卫队海军已升级作战系统并密切配合；他称美军向船主收取护航费用却在船只遇袭时拒绝担责，并表示“目前的既定指令是，霍尔木兹海峡必须保持封锁状态”。",
+      "source": "新浪财经7×24（央视新闻）",
+      "url": "https://finance.sina.com.cn/7x24/2026-11-27/doc-inkaenea7811645.shtml",
+      "published": "2026-11-27 16:56 UTC+8",
+      "published_iso": "2026-11-27T16:56:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "wbg-jwei-leaves",
+      "category": "游戏",
+      "lang": "zh-Hans",
+      "heat": 4,
+      "headline_original": "WBG官方公告：辅助选手Jwei即日起正式离队",
+      "headline": "WBG官宣辅助Jwei（孙俊委）离队，一天内已有五人告别",
+      "summary": "直播吧15:11报道，WBG英雄联盟分部官方社媒发布公告，辅助选手孙俊委（Jwei）即日起正式离队。这是WBG当天发布的第五份离队公告，此前Elk、Zika、Xiaohao、Moham已先后官宣离队；凤凰网大风号称，上赛季阵容中仅中单Xiaohu未宣布离队。新援以俱乐部后续官宣为准。",
+      "source": "直播吧（WBG官方社媒公告）；另见凤凰网、lol-stove官宣时间线",
+      "url": "https://news.zhibo8.com/game/2026-11-27/6b092cd41aa3enative.htm",
+      "published": "2026-11-27 15:11 UTC+8",
+      "published_iso": "2026-11-27T15:11:13+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "sap-github-security-incident",
+      "category": "理工科",
+      "lang": "de",
+      "heat": 4,
+      "headline_original": "SAP meldet verdächtige Aktivitäten",
+      "headline": "【更新】SAP证实发现“可疑活动”、称暂无客户数据遭访问；彭博称其正筹划裁员至少1万人",
+      "summary": "德国电视一台tagesschau报道，SAP向德新社表示已发现可疑活动并立即采取措施，目前调查未发现客户业务数据遭未授权访问，但未说明活动性质与范围；德新社看到的内部通知称可疑活动出现在其GitHub开发平台，要求员工检查是否需更换凭据。《明镜》周刊此前称其遭黑客攻击，SAP未予证实。 另据CNBC援引彭博社，SAP正准备一项至少裁减1万个岗位的计划，以面向AI时代重塑软件业务；SAP回应称AI正快速改变经营环境、岗位会随之变化，但“尚未就进一步措施作出决定”，不评论猜测。",
+      "source": "tagesschau（援引dpa）；另见路透社、明镜周刊；CNBC（援引彭博社）",
+      "url": "https://www.tagesschau.de/wirtschaft/sap-hacker-angriff-100.html",
+      "published": "2026-11-27 14:48 UTC+8",
+      "published_iso": "2026-11-27T14:48:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "us-pushed-venezuela-iraq-leave-opec",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 4,
+      "headline_original": "US pushed Venezuela, Iraq to consider leaving OPEC, sources say",
+      "headline": "路透独家：特朗普政府曾鼓励委内瑞拉、伊拉克考虑退出欧佩克，并阻止委方缴纳会费",
+      "summary": "《海峡时报》转载路透社报道，十名知情人士称美方今年早些时候鼓动两个欧佩克创始成员国考虑退出，并阻止委内瑞拉动用美控账户资金缴纳年度会费；沙特王储今夏出面劝阻美方，伊拉克石油部则说服总理留在组织内。美国务院称高层未提及此议题。",
+      "source": "The Straits Times（路透社）",
+      "url": "https://www.straitstimes.com/world/europe/us-pushed-venezuela-iraq-to-consider-leaving-opec-sources-say",
+      "published": "2026-11-27 14:07 UTC+8",
+      "published_iso": "2026-11-27T14:07:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "wbg-moham-leaves",
+      "category": "游戏",
+      "lang": "zh-Hans",
+      "heat": 4,
+      "headline_original": "WBG官宣：韩援辅助Moham即日起正式离队",
+      "headline": "WBG官宣韩援辅助Moham（郑渽勋）离队，一天内四人告别",
+      "summary": "直播吧报道，WBG英雄联盟分部14时发布公告，辅助Moham即日起正式离队；此前同日已先后官宣Elk、Zika、Xiaohao离队。lol-stove官宣时间线据WBG官方微博同步记录四条离队公告。新援人选以俱乐部后续官宣为准。",
+      "source": "直播吧（WBG官方微博公告）；另见lol-stove官宣时间线",
+      "url": "https://news.zhibo8.com/game/2026-11-27/6b091d9b71fd5native.htm",
+      "published": "2026-11-27 14:06 UTC+8",
+      "published_iso": "2026-11-27T14:06:18+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "ukraine-overnight-155-drones-1127",
+      "category": "社会政治",
+      "lang": "uk",
+      "heat": 4,
+      "headline_original": "ППО з вечора знешкодила 110 зі 155 російських дронів, які атакували Україну",
+      "headline": "乌空军：俄军一夜出动155架无人机，乌方击落或压制110架，27处遭击中",
+      "summary": "乌克兰国家通讯社援引乌空军称，自26日18时起俄军动用155架“沙赫德”等攻击无人机（其中83架为喷气式）袭击乌克兰，截至27日8时击落/压制110架，27处地点遭击中；文尼察州能源和铁路设施受损，空军称袭击仍在持续。",
+      "source": "乌克兰国家通讯社Ukrinform（援引乌空军）",
+      "url": "https://www.ukrinform.ua/rubric-ato/4189107-ppo-z-vecora-zneskodila-110-zi-155-rosijskih-droniv-aki-atakuvali-ukrainu.html",
+      "published": "2026-11-27 14:06 UTC+8",
+      "published_iso": "2026-11-27T14:06:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "wbg-xiaohao-leaves",
+      "category": "游戏",
+      "lang": "zh-Hans",
+      "headline_original": "WBG发布人员变动公告：打野选手Xiaohao即日起正式离队",
+      "headline": "WBG官宣打野Xiaohao（彭浩）即日起正式离队，两小时内三名主力相继离开",
+      "summary": "WBG 27日发布人员变动公告，称经俱乐部与选手友好沟通、尊重选手意愿，打野选手彭浩（Xiaohao）即日起正式离队。此前WBG已于同日11时、12时先后官宣下路Elk、上单Zika离队。",
+      "source": "澎湃新闻（转载WBG官方公告）",
+      "url": "https://www.thepaper.cn/newsDetail_forward_34574165",
+      "published": "2026-11-27 13:43 UTC+8",
+      "published_iso": "2026-11-27T13:43:00+08:00",
+      "heat": 4
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "india-us-trade-deal-close",
+      "category": "社会政治",
+      "lang": "en",
+      "headline_original": "India-US trade deal close to completion: Goyal amid fresh tariff threat",
+      "headline": "印度商工部长戈亚尔：印美贸易协议“接近完成”，谈判路线图已成形",
+      "summary": "印度商工部长戈亚尔27日表示，此前阻碍谈判的流程与路径“正在成形”，印美贸易协议接近达成。此前美国贸易代表办公室报告提议对印度进口商品征收25%关税，若双方达成双边协议则上限为17%。",
+      "source": "Business Standard；另见The Hindu",
+      "url": "https://www.business-standard.com/economy/news/india-us-trade-deal-nears-completion-piyush-goyal-amid-fresh-tariff-threat-126112700246_1.html",
+      "published": "2026-11-27 13:04 UTC+8",
+      "published_iso": "2026-11-27T13:04:02+08:00",
+      "heat": 4
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "state-council-capital-market-1127",
+      "category": "社会政治",
+      "lang": "zh-Hans",
+      "heat": 4,
+      "headline_original": "李强主持召开国务院常务会议",
+      "headline": "国务院常务会议：持续完善资本市场稳市机制，谋划出台增量政策，加力发挥“国家队”作用",
+      "summary": "新华社电，李强27日主持国务院常务会议，提出坚持逆周期调节和改革攻坚两手抓、实施好存量政策并谋划出台增量政策，推动上市公司加大分红回购，进一步优化中央汇金类“平准基金”功能；会议还审议通过《生产安全事故隐患排查治理条例（草案）》。",
+      "source": "新华社",
+      "url": "https://www.news.cn/politics/20261127/ee1869cebf1e48839d3d6d8e51a99ee6/c.html",
+      "published": "2026-11-27 12:24 UTC+8",
+      "published_iso": "2026-11-27T12:24:37+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "wbg-zika-leaves",
+      "category": "游戏",
+      "lang": "zh-Hans",
+      "headline_original": "WBG官宣：上单Zika即日起正式离队",
+      "headline": "WBG官宣上单Zika（唐华钰）即日起正式离队，一小时内连送两名主力",
+      "summary": "直播吧报道，WBG英雄联盟分部27日中午在官方社媒发布公告，称经友好沟通、尊重选手意愿，上单唐华钰（Zika）即日起正式离队；约一小时前俱乐部刚宣布下路Elk离队。Zika下一站尚未公布。",
+      "source": "WBG官方社媒（据直播吧转载）",
+      "url": "https://news.zhibo8.com/game/2026-11-27/6b0900d182e42native.htm",
+      "published": "2026-11-27 12:02 UTC+8",
+      "published_iso": "2026-11-27T12:02:56+08:00",
+      "heat": 4
+    },
+    {
+      "headline_original_verified": true,
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "wbg-elk-leaves",
+      "category": "游戏",
+      "lang": "zh-Hans",
+      "time_precision": "minute",
+      "headline_original": "WBG官宣：下路选手ELK正式离开队伍",
+      "headline": "WBG官宣下路Elk（赵嘉豪）即日起正式离队",
+      "summary": "WBG英雄联盟分部27日在官方社媒发布人员变动公告，称经友好沟通、尊重选手意愿，AD选手赵嘉豪（Elk，原ID WBG.Elk）即日起正式离队，并感谢其付出。Elk下一站尚未公布。",
+      "source": "WBG官方社媒（据直播吧转载）",
+      "url": "https://news.zhibo8.com/game/2026-11-27/6b08f2ca6565dnative.htm",
+      "published": "2026-11-27 11:02 UTC+8",
+      "published_iso": "2026-11-27T11:02:55+08:00",
+      "heat": 4
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "korea-gs-aidc-donghae",
+      "category": "理工科",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Lee attends groundbreaking ceremony for major AI data center in Gangwon",
+      "headline": "韩国总统李在明出席GS集团江原道东海市2.4GW人工智能数据中心开工仪式",
+      "summary": "韩联社报道，李在明28日出席GS集团在江原道东海市建设的人工智能数据中心（AIDC）园区开工仪式。该项目规划容量2.4吉瓦，是韩国政府6月公布的三大超大型项目之一，青瓦台称建成后将成为亚洲最大的AI基础设施设施之一。GS集团会长许泰秀、科学技术信息通信部长官裴庆勋等出席；李在明上周刚视察SK集团蔚山AI数据中心工地。",
+      "source": "韩联社（Yonhap）",
+      "url": "https://en.yna.co.kr/view/AEN20261128001500315",
+      "published_iso": "2026-11-28T10:55:00+08:00",
+      "published": "2026-11-28 10:55 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "j35a-zhuhai-airshow-static",
+      "category": "理工科",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "歼-35A飞抵珠海 将首次真机进馆展出",
+      "headline": "歼-35A隐身战斗机飞抵珠海，将在第十六届中国航展上首次以真机进馆静态展示",
+      "summary": "中新网援引央视报道，歼-35A于28日上午飞抵珠海，将在第十六届中国国际航空航天博览会上首次以真机形式在1号馆亮相、近距离静态展示。歼-35A是航空工业集团自主研制的新一代中型隐身多用途战斗机，单座双发、翼身融合布局，以制空作战为主、兼顾对面作战；两年前第十五届航展上该机首次公开亮相并完成飞行表演。",
+      "source": "中国新闻网（援引央视）",
+      "url": "https://www.chinanews.com.cn/gn/2026/11-28/10739155.shtml",
+      "published_iso": "2026-11-28T10:51:00+08:00",
+      "published": "2026-11-28 10:51 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "japan-mod-defense-ai-vision",
+      "category": "理工科",
+      "lang": "ko",
+      "heat": 3,
+      "headline_original": "日방위성, 새 조직 만들어 AI 활용 확대…데이터 일원화해 관리",
+      "headline": "日本防卫省发布“防卫AI愿景”：新设组织统一管理AI数据，最终判断与责任仍归人类",
+      "summary": "韩联社援引《日本经济新闻》报道，日本防卫省27日发布“防卫AI愿景”，将在整备计划局长之下新设统一管理AI所需数据的组织，打通陆海空自卫队与内部部门的数据壁垒，例如用AI可视化雷达和卫星信息以加快指挥决策，并结合无人机减少自卫官进入危险区域。防卫省称AI可能出错，最终判断和责任由人类承担；具体事业方式将在年内修订“安保三文件”后确定。",
+      "source": "韩联社（援引日本经济新闻）",
+      "url": "https://www.yna.co.kr/view/AKR20261128029000073",
+      "published_iso": "2026-11-28T10:49:00+08:00",
+      "published": "2026-11-28 10:49 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "india-lok-sabha-expansion-amendment",
+      "category": "社会政治",
+      "lang": "ko",
+      "heat": 3,
+      "headline_original": "인도, '하원의원 증원·여성할당제 조기 실시' 개헌안 재추진",
+      "headline": "印度莫迪政府再推修宪：人民院议席拟由543席增至最多850席，并提前实施三成三女性保留席位",
+      "summary": "韩联社援引路透社、彭博社报道，印度政府27日决定向议会提交修宪案，拟将联邦人民院议席从543席扩大至最多850席，并按2011年人口普查重划选区后提前实施33%女性保留席位、从2029年大选起适用；消息人士称议会将于30日起召开特别会期表决。该案今年4月曾以298票对230票未达三分之二多数被否决，南部反对党担心重划选区削弱其席位比重。",
+      "source": "韩联社（援引路透社、彭博社）",
+      "url": "https://www.yna.co.kr/view/AKR20261128028100104",
+      "published_iso": "2026-11-28T10:42:00+08:00",
+      "published": "2026-11-28 10:42 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "peru-mi17-crash",
+      "category": "社会政治",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "秘魯空軍直升機墜毀　機上8名軍人遇難、1人生還",
+      "headline": "秘鲁空军一架米-17直升机在南部执行撤离任务时坠毁，机上8名军人遇难、机师生还",
+      "summary": "香港电台报道，秘鲁武装部队声明称，一架米-17型直升机前日在南部执行任务时坠毁，机上9人已全部寻回，8名死者中5人来自空军、3人来自陆军，机师生还。国防部长说事发时直升机正执行军人撤离任务，怀疑降落时旋翼碰到树木导致机身侧翻，军方将调查事故原因。",
+      "source": "香港电台（RTHK）",
+      "url": "https://news.rthk.hk/rthk/ch/component/k2/1879577-20261128.htm",
+      "published_iso": "2026-11-28T10:29:00+08:00",
+      "published": "2026-11-28 10:29 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "albanese-costa-rica-denied",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "UN rapporteur halted at Costa Rica airport to leave on Nov 28",
+      "headline": "【更新】被拒入境哥斯达黎加的联合国特别报告员阿尔巴内塞将于28日离境，称将追究“恐怖主义”指控",
+      "summary": "《海峡时报》援引法新社报道，联合国巴勒斯坦被占领土人权特别报告员阿尔巴内塞26日抵达哥斯达黎加后被拒入境、在圣何塞机场滞留，她28日称将追究哥政府散布的虚假“恐怖主义”指控，并在X上称“数着时间等明天的航班”。哥斯达黎加政府称她涉及与恐怖行为有关的“国际警报”；当地《民族报》报道，法院27日已下令当局立即归还其护照。联合国人权事务高级专员蒂尔克和意大利外长均曾敦促哥方放行。",
+      "source": "《海峡时报》（法新社）；另见ABC",
+      "url": "https://www.straitstimes.com/world/un-rapporteur-halted-at-costa-rica-airport-to-leave-on-saturday",
+      "published_iso": "2026-11-28T10:20:00+08:00",
+      "published": "2026-11-28 10:20 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "maplestory-overdrive-update",
+      "category": "游戏",
+      "lang": "ja",
+      "heat": 3,
+      "headline_original": "MMORPG『メイプルストーリー』大型アプデ「OVERDRIVE」盛りだくさんな詳細お披露目。新職業「レテ」、一撃ダメージ上限「10兆」のほか『ブルーアーカイブ』とのコラボも発表",
+      "headline": "《冒险岛》（日服）大型更新“OVERDRIVE”12月9日上线：新职业“蕾特”、单击伤害上限10兆，并宣布与《蔚蓝档案》联动",
+      "summary": "AUTOMATON报道，Nexon 11月27日在“WINTER SHOWCASE 2026”直播中宣布，《冒险岛》大型更新“OVERDRIVE”将于12月9日推出，包括召唤师新职业“蕾特”、限时世界“挑战者世界第4季”（至2027年4月14日）、可将经验带回原世界的“挑战连接”系统、新Boss“贝罗娜”及Boss战与日常“缩时”改动，单击伤害上限提高至10兆，并宣布与《蔚蓝档案》联动。",
+      "source": "AUTOMATON",
+      "url": "https://automaton-media.com/articles/newsjp/maplestory-20261128-482448/",
+      "published_iso": "2026-11-28T10:10:00+08:00",
+      "published": "2026-11-28 10:10 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "bronson-reed-dies",
+      "category": "其他",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Adelaide-born WWE wrestler Bronson Reed dies at 38",
+      "headline": "WWE宣布澳大利亚摔角手布朗森·里德因医疗并发症去世，终年38岁",
+      "summary": "澳大利亚广播公司（ABC）报道，WWE周六宣布阿德莱德出生的摔角手杰梅因·黑利（擂台名“Bronson Reed”）去世，年仅38岁，WWE将死因归于医疗并发症，并称他是“擂台上的巨人，更是出色的人、顾家的人和受人爱戴的同事”。里德在WWE以反派（heel）角色著称。",
+      "source": "ABC News（澳大利亚）",
+      "url": "https://www.abc.net.au/news/2026-11-28/wwe-wrestler-bronson-reed-dies-aged-38/107438016",
+      "published_iso": "2026-11-28T10:05:00+08:00",
+      "published": "2026-11-28 10:05 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "nis-kim-jongun-china-visit",
+      "category": "社会政治",
+      "lang": "ko",
+      "heat": 3,
+      "headline_original": "'김정은 추가 방중설'에 국정원 \"여러 동향 주시 중\"",
+      "headline": "韩国国情院回应“金正恩将再度访华”传闻：正在关注多种动向",
+      "summary": "韩联社报道，针对金正恩访华在即的报道，韩国国家情报院28日回复称“正在关注多种动向”，被解读为事实上确认捕捉到朝中关系值得关注的迹象。报道称习近平18日在深圳会见李在明时曾作出可被解读为朝方最高层可能访华的表态，但韩国青瓦台和外交部27日称“没有报道所述的表态”。金正恩上月24日曾乘车经新鸭绿江大桥当日往返丹东。访华尚无官方宣布。",
+      "source": "韩联社（Yonhap）",
+      "url": "https://www.yna.co.kr/view/AKR20261128024700504",
+      "published_iso": "2026-11-28T09:30:00+08:00",
+      "published": "2026-11-28 09:30 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "mecca-pact-pakistan-turkey-saudi",
+      "category": "社会政治",
+      "lang": "ko",
+      "heat": 3,
+      "headline_original": "파키스탄·튀르키예, 후티 반군 공격 맞서 사우디 지원 강화",
+      "headline": "“麦加共同防御协定”三国伊斯兰堡会谈：巴基斯坦、土耳其将加强支持沙特应对胡塞武装袭击",
+      "summary": "韩联社援引美联社、路透社报道，巴基斯坦、土耳其、沙特三国外长、防长等27日在伊斯兰堡举行逾两小时会谈，再次谴责也门胡塞武装针对沙特平民和基础设施的袭击，重申依据今年8月签署的“麦加共同防御协定”维护沙特安全与领土。土耳其官员称正考虑向沙特提供军事援助，但强调协定纯属防御性质，不会派兵赴也门作战。",
+      "source": "韩联社（援引美联社、路透社）",
+      "url": "https://www.yna.co.kr/view/AKR20261128023600104",
+      "published_iso": "2026-11-28T09:07:00+08:00",
+      "published": "2026-11-28 09:07 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "denuvo-voices38-lawsuit",
+      "category": "游戏",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "Denuvo 追查破解者 voices38 身份未果：Discord 无数据、Reddit 拒绝提供资料，Valve 提交 7 个 Steam 账号但未能确认归属",
+      "headline": "Denuvo母公司起诉破解者voices38陷僵局：Valve交出7个Steam账号仍难确认身份，申请延期90天",
+      "summary": "IT之家援引法院文件报道，Denuvo母公司Irdeto 9月在加州北区联邦法院起诉匿名破解者voices38，指其破解《霍格沃茨之遗》《黑神话：悟空》等26款游戏。法院10月准许向Valve、Discord、Reddit发传票，但Discord仅提供已删除账号的空白记录，Reddit以言论自由等理由提出异议拒绝提供，Valve交出的7个Steam账号也未能确认身份；Irdeto已申请将送达期限延长90天至2027年3月15日。voices38在Reddit回应称这些账号与其无关。",
+      "source": "IT之家（援引法院文件）",
+      "url": "https://www.ithome.com/1/033/796.htm",
+      "published_iso": "2026-11-28T09:01:00+08:00",
+      "published": "2026-11-28 09:01 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "kim-haseong-detroit-official",
+      "category": "其他",
+      "lang": "ko",
+      "heat": 3,
+      "headline_original": "MLB 디트로이트, 김하성과 1년 계약 공식 발표(종합)",
+      "headline": "底特律老虎官宣签下金河成：1年500万美元，另有最高100万美元打席奖金",
+      "summary": "韩联社报道，美国职棒大联盟底特律老虎队28日（韩国时间）通过官方社交媒体宣布签下韩国内野手金河成（31岁），美媒此前报道合同为1年500万美元，另按打席数设最高100万美元奖金，年薪较今年在亚特兰大勇士时减少75%。他预计将担任老虎队主力游击手，这是他在大联盟效力的第四支球队。",
+      "source": "韩联社（Yonhap）；底特律老虎官方账号",
+      "url": "https://www.yna.co.kr/view/AKR20261128020751007",
+      "published_iso": "2026-11-28T09:00:00+08:00",
+      "published": "2026-11-28 09:00 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "puerto-rico-outrage-protest",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Thousands of Puerto Ricans join ‘Day of National Outrage’ protest",
+      "headline": "波多黎各数千人参加“全国愤怒日”抗议，不满电价创新高与生活成本飙升",
+      "summary": "半岛电视台报道，约30个工会、宗教等团体27日在首府圣胡安组织“全国愤怒日”抗议，退休人员、学生、公交司机等参加，抗议创纪录的电价、生活成本上涨和基础服务恶化；示威者一度占据岛上一条主要高速公路致其封闭。据当地媒体，组织者估计约8000人参加，是2025年1月冈萨雷斯就任总督以来规模最大的抗议之一。",
+      "source": "半岛电视台（Al Jazeera）",
+      "url": "https://www.aljazeera.com/news/2026/11/28/thousands-of-puerto-ricans-join-day-of-national-outrage-protest",
+      "published_iso": "2026-11-28T09:00:00+08:00",
+      "published": "2026-11-28 09:00 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "malinin-sp-world-record",
+      "category": "其他",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Ilia Malinin breaks Nathan Chen’s short program world record at NHK Trophy",
+      "headline": "花滑NHK杯：马利宁短节目114.81分，打破陈巍保持的世界纪录",
+      "summary": "《日本时报》报道，三届世锦赛冠军、美国选手伊利亚·马利宁27日在NHK杯男子短节目中得到114.81分，打破陈巍2022年北京冬奥会创下的113.97分世界纪录，暂列第一。他完成了4周跳、3周半跳和4周勾手接3周连跳，节目内容分46.41分为全场最高。",
+      "source": "The Japan Times；另见NHK",
+      "url": "https://www.japantimes.co.jp/sports/2026/11/28/ilia-malinin-breaks-chen-record/",
+      "published_iso": "2026-11-28T08:59:00+08:00",
+      "published": "2026-11-28 08:59 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "putin-perm-submarine",
+      "category": "社会政治",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "普京出席新型核潜艇升旗仪式：将继续发展完善海军力量",
+      "headline": "普京出席“亚森-M”级核潜艇“彼尔姆”号入列仪式，称该艇可携“锆石”高超音速导弹、将编入太平洋舰队",
+      "summary": "中新网援引俄塔社、卫星社报道，俄罗斯总统普京当地时间27日在北德文斯克出席“彼尔姆”号核动力潜艇升旗入列仪式，称这是俄海军6年来接收的第5艘“亚森-M”级核潜艇，可在世界大洋隐蔽执行任务、使用包括“锆石”高超音速导弹在内的海基巡航导弹，将加入太平洋舰队执行战斗值班。普京表示，至2030年俄海军还将接收5艘导弹核潜艇，其中3艘为“亚森-M”级。",
+      "source": "中国新闻网（援引塔斯社、俄罗斯卫星通讯社）",
+      "url": "https://www.chinanews.com.cn/gj/2026/11-28/10739105.shtml",
+      "published_iso": "2026-11-28T08:45:00+08:00",
+      "published": "2026-11-28 08:45 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "nk-russia-econ-committee-13th",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "N. Korea, Russia hold economic cooperation meeting, agree to boost joint projects",
+      "headline": "朝俄政府间经贸科技合作委员会第13次会议在平壤举行，双方同意扩大电力等领域合作项目",
+      "summary": "韩联社援引朝中社报道，朝俄政府间贸易、经济和科技合作委员会第13次会议27日在平壤举行，朝鲜对外经济相尹正浩与俄自然资源与生态部长科兹洛夫分别率团出席。双方重申巩固两国“战斗友谊与同盟”，并确认电力等多个领域的合作项目。",
+      "source": "韩联社（Yonhap，援引朝中社）",
+      "url": "https://en.yna.co.kr/view/AEN20261128000500315",
+      "published_iso": "2026-11-28T08:44:00+08:00",
+      "published": "2026-11-28 08:44 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "uganda-mrna-ebola-trial",
+      "category": "理工科",
+      "lang": "ko",
+      "heat": 3,
+      "headline_original": "우간다서 mRNA 에볼라 백신 임상 착수…아프리카 최초",
+      "headline": "乌干达启动与Moderna合作的mRNA埃博拉疫苗1期临床，系非洲首个mRNA疫苗1期试验",
+      "summary": "韩联社援引法新社报道，乌干达病毒研究所27日发表声明，称已与美国药企Moderna合作，启动针对本迪布焦型埃博拉病毒的实验性mRNA疫苗1期临床试验，将在224名1至65岁健康志愿者中评估安全性和免疫原性，这是非洲首次开展mRNA疫苗1期临床。刚果（金）东部也将于30日开始两种实验性疫苗的临床试验；世卫组织数据显示，刚果（金）自5月宣布疫情以来已有1.1万余例确诊、约5700人死亡，本迪布焦型目前尚无获批疫苗和疗法。",
+      "source": "韩联社（Yonhap，援引法新社）",
+      "url": "https://www.yna.co.kr/view/AKR20261128021400009",
+      "published_iso": "2026-11-28T08:41:00+08:00",
+      "published": "2026-11-28 08:41 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "godaddy-inception-leak-claim",
+      "category": "理工科",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "约 37.5GB：全球最大域名注册商 GoDaddy 被爆数据泄露，含薪酬等员工信息",
+      "headline": "勒索组织Inception声称入侵GoDaddy并公开约37.5GB数据，研究人员称或为旧存档，GoDaddy暂未回应",
+      "summary": "IT之家援引Neowin报道，勒索软件组织Inception在其泄密网站声称入侵全球最大域名注册商GoDaddy，公开约1.08万个文件、约37.5GB数据，包括25GB会议与全员大会视频、办公文档、内部数据湖配置及代码，部分文件据称含员工姓名、聊天记录和薪酬等信息（据称受信息权限管理加密保护）。Cybernews研究人员认为这批数据可能是2020至2024年前后的旧存档；截至发稿GoDaddy未公开回应，该组织未提出赎金要求，入侵说法尚未获证实。",
+      "source": "IT之家（援引Neowin、Cybernews）",
+      "url": "https://www.ithome.com/1/033/791.htm",
+      "published_iso": "2026-11-28T08:22:00+08:00",
+      "published": "2026-11-28 08:22 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "adobe-black-friday-13bn",
+      "category": "其他",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "US Black Friday online sales to cross $13 billion, Adobe says",
+      "headline": "Adobe：美国黑五线上消费预计达130亿至134亿美元，截至美东傍晚已达97亿美元、同比增12.8%",
+      "summary": "CNA转载路透社报道，Adobe Analytics数据显示，截至美东时间27日18:30，美国黑色星期五线上消费已达97亿美元，同比增长12.8%，全天预计130亿至134亿美元；网络星期一预计达151亿美元，感恩节至网络星期一五天线上消费预计增长7.4%至475亿美元。Salesforce数据显示，黑五上半天美国线上销售额59亿美元、全球307亿美元。以上多为预测值，最终数据待公布。",
+      "source": "CNA（转载路透社）",
+      "url": "https://www.channelnewsasia.com/business/us-black-friday-online-sales-cross-13-billion-adobe-says-6588836",
+      "published_iso": "2026-11-28T08:06:00+08:00",
+      "published": "2026-11-28 08:06 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "canary-migrant-boat-dead",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "At least eight found dead on migrant boat off Spain’s Canary Islands",
+      "headline": "西班牙加那利群岛附近一艘载约100人的移民船上发现至少8具遗体，6人重伤空运送医",
+      "summary": "半岛电视台报道，西班牙海上救援局27日称，在耶罗岛以南39海里处获救的一艘载约100人的移民船上发现8至10具遗体，6人情况严重被空运送医，船只被拖往拉埃斯塔卡港；另一艘船上84名幸存者在耶罗岛拉雷斯廷加港上岸。加那利群岛是西非移民进入欧盟的主要入口，2024年抵达人数创下逾4.6万的纪录。",
+      "source": "Al Jazeera",
+      "url": "https://www.aljazeera.com/news/2026/11/27/at-least-eight-found-dead-on-migrant-boat-off-spains-canary-islands",
+      "published_iso": "2026-11-28T07:57:00+08:00",
+      "published": "2026-11-28 07:57 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "spacex-anterix-900mhz",
+      "category": "理工科",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "马斯克 SpaceX 拓展卫星直连手机业务，有意收购美国 Anterix 900 MHz 频谱",
+      "headline": "彭博：Anterix考虑整体出售900MHz频谱，SpaceX为拓展卫星直连手机业务已表达兴趣",
+      "summary": "IT之家援引彭博社27日报道，美国频谱公司Anterix正考虑大规模出售其覆盖全美的900MHz频谱资产（约85%尚未投入使用），SpaceX已对该频段表达兴趣，以拓展卫星直连终端（D2D）业务。Anterix方面称正与潜在交易方接触；美国联邦通信委员会10月已推进将900MHz纳入卫星补充覆盖规则的提案，但仍在审议中。目前尚无交易达成。",
+      "source": "IT之家（援引彭博社）",
+      "url": "https://www.ithome.com/1/033/776.htm",
+      "published_iso": "2026-11-28T06:53:00+08:00",
+      "published": "2026-11-28 06:53 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "ibm-consulting-h1b-sponsorship",
+      "category": "理工科",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "IBM 咨询部门停止多数 H-1B 签证及绿卡担保，美国员工三周内决定去留",
+      "headline": "Rest of World：IBM咨询部门停止为多数职位担保H-1B签证和绿卡，受影响员工须在约三周内选择外调或离职",
+      "summary": "IT之家援引《Rest of World》报道，IBM已告知部分美国员工，其咨询部门将停止为大多数职位提供美国工作签证及绿卡担保；不接受海外调岗者可获三个月薪酬补偿，最后工作日为12月31日。IBM发言人称参与美国高技能签证项目的程度多年来持续下降，此次因人才供应和客户需求变化作出调整，但未披露受影响人数。",
+      "source": "IT之家（援引Rest of World）",
+      "url": "https://www.ithome.com/1/033/774.htm",
+      "published_iso": "2026-11-28T06:49:00+08:00",
+      "published": "2026-11-28 06:49 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "us-bars-retn",
+      "category": "理工科",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "US government bars bandwidth provider RETN from American networks",
+      "headline": "美国商务部禁止带宽供应商RETN接入美国网络，须于2027年1月1日前拆除全部设备",
+      "summary": "CNA转载路透社报道，美国商务部工业与安全局（BIS）27日在《联邦公报》发布通知，称互联网带宽供应商RETN构成2019年“敌对外国信息技术企业”行政令所指的“不当且不可接受的风险”，要求其及继任者自2027年1月1日起拆除在美国网络中直接或经第三方提供、安装的所有设备，并终止向美国人提供服务。RETN官网自称“欧亚网络”，线缆经俄罗斯连接欧亚；路透未能联系到该公司置评。",
+      "source": "CNA（转载路透社）",
+      "url": "https://www.channelnewsasia.com/business/us-government-bars-bandwidth-provider-retn-american-networks-6588721",
+      "published_iso": "2026-11-28T06:41:00+08:00",
+      "published": "2026-11-28 06:41 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "kenya-mackenzie-manslaughter",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Kenyan cult leader guilty of manslaughter more than 123 starvation deaths",
+      "headline": "肯尼亚邪教头目麦肯齐再被判过失杀人罪成立，涉123名信徒饿死",
+      "summary": "半岛电视台报道，肯尼亚蒙巴萨法院27日裁定“福音国际教会”创始人保罗·麦肯齐对123名信徒死亡负过失杀人罪责，其妻子等29名追随者一同被定罪；法官称麦肯齐“下达了禁食至死的指示”，其律师称将在量刑后上诉。麦肯齐11月6日已因谋杀191人（其中190名儿童）被判200年监禁，本周又被裁定虐待儿童、激进化和恐怖主义相关罪名成立。",
+      "source": "Al Jazeera（援引路透社、美联社）",
+      "url": "https://www.aljazeera.com/news/2026/11/27/kenyan-cult-leader-guilty-of-manslaughter-more-than-123-starvation-deaths",
+      "published_iso": "2026-11-28T06:33:00+08:00",
+      "published": "2026-11-28 06:33 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "sp-france-outlook-negative",
+      "category": "其他",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "S&P cuts France outlook to negative on budget, politics",
+      "headline": "标普将法国主权信用评级展望下调至“负面”，维持A+评级，称政治极化制约减赤",
+      "summary": "路透社报道，标普全球27日确认法国“A+/A-1”主权评级，但将展望由“稳定”下调至“负面”，称增长疲弱和利息成本上升令减赤更难，预计今明两年赤字高于此前预测，且2027年总统选举前后的政治极化可能继续制约减赤和改革。法国少数派政府正推动2027年预算案，目标将赤字率从今年的5.4%降至5.0%；法国10年期国债收益率上月一度升破5.14%，为2002年以来最高。",
+      "source": "路透社（经Yahoo Finance）；另见法国24台",
+      "url": "https://finance.yahoo.com/economy/policy/articles/p-cuts-france-outlook-negative-221216472.html",
+      "published_iso": "2026-11-28T06:12:00+08:00",
+      "published": "2026-11-28 06:12 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "cubs-sato-bluejays-taira",
+      "category": "其他",
+      "lang": "ja",
+      "heat": 3,
+      "headline_original": "カブスが佐藤輝明と６年契約で合意と発表、外野手で起用か…ブルージェイズは平良海馬獲得を発表",
+      "headline": "小熊官宣与阪神佐藤辉明签6年合同、总额1.2亿美元；蓝鸟官宣签下西武平良海马",
+      "summary": "《读卖新闻》报道，美职棒芝加哥小熊27日宣布通过入札制度从阪神签下佐藤辉明（27岁），合同6年，据MLB官网总额1.2亿美元，球队将其登记为外野手；多伦多蓝鸟同日宣布以5年总额8000万美元签下西武投手平良海马（27岁）。NHK同步报道两队已正式宣布。",
+      "source": "读卖新闻；另见NHK",
+      "url": "https://www.yomiuri.co.jp/sports/mlb/20261128-GYT1T00037/",
+      "published_iso": "2026-11-28T06:07:00+08:00",
+      "published": "2026-11-28 06:07 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "spain-election-final-rallies",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Spanish PM and rivals rally supporters in final pitch for votes",
+      "headline": "西班牙周日大选前最后造势：桑切斯称“无法想象会输”，人民党民调小幅领先",
+      "summary": "BBC报道，西班牙各主要政党领导人举行选前最后集会。社会党首相桑切斯称有信心逆转民调，并指责人民党领袖费霍奥计划与极右翼组建联合政府；民调小幅领先的费霍奥则在巴塞罗那和塞维利亚造势，承诺开启“真相、正派与善治”的新时代，并批评桑切斯回避腐败、铁路事故、移民和国债等问题。全国近3900万选民有投票权，多数民调预计结果胶着。",
+      "source": "BBC News",
+      "url": "https://www.bbc.co.uk/news/articles/c8wy5p4gdnwvo",
+      "published_iso": "2026-11-28T05:55:00+08:00",
+      "published": "2026-11-28 05:55 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "disguised-yakkey-rumor",
+      "category": "游戏",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Sources: Yakkey set to join Disguised in the LCS ahead of 2027",
+      "headline": "【传闻·尚未官宣】Sheep Esports：LCS外卡席位队伍Disguised将签罗马尼亚AD Yakkey，另传Mixtsure、PhyMini加盟",
+      "summary": "Sheep Esports援引消息人士称，保住2027赛季LCS“客座”席位的Disguised将签下Vitality.Bee的21岁罗马尼亚AD Yakkey，他将首次征战一级联赛；该消息由The Load-In GG首发。Sheep随后另报，NACL选手PhyMini（中单）和Mixtsure（辅助）也将加盟，搭配此前传出的打野Contractz，上单与主教练待定。Disguised官方尚未宣布任何签约。",
+      "source": "Sheep Esports（The Load-In GG首发）",
+      "url": "https://www.sheepesports.com/en/articles/sources-yakkey-set-to-join-disguised-in-the-lcs-ahead-of-2027/en",
+      "published_iso": "2026-11-28T05:39:00+08:00",
+      "published": "2026-11-28 05:39 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "us-stocks-black-friday-close",
+      "category": "其他",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "How major US stock indexes fared Friday 11/27/2026",
+      "headline": "美股黑五半日交易收涨：标普涨1.6%、纳指涨2.3%，道指涨近600点创2022年以来最佳单周",
+      "summary": "美联社报道，美股27日提前收盘并录得逾一年来最佳单周表现。据Quartz与Sharecast，道指涨591.99点（1.2%）至50774.94点，标普500涨1.6%至7297.49点，纳指涨2.3%至24129.50点；本周标普、道指均涨逾5%，纳指涨逾6%。科技股领涨，Meta、亚马逊、博通走高，Anthropic收涨11%；Vertex制药因FDA推迟审批决定跌5%。",
+      "source": "美联社；另见Quartz（援引CNBC）、Sharecast",
+      "url": "https://apnews.com/article/wall-street-stocks-dow-nasdaq-04dab6079cf7f3dfe7285a3cc1f240a2",
+      "published_iso": "2026-11-28T02:45:00+08:00",
+      "published": "2026-11-28 02:45 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "iiss-russian-sabotage-europe",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "‘Mass-casualty event’ in Europe possible amid rise in Russian sabotage, says thinktank",
+      "headline": "国际战略研究所报告：俄罗斯在欧洲破坏活动一年增16%、纵火爆炸翻倍，或酿“大规模伤亡事件”",
+      "summary": "《卫报》报道，国际战略研究所（IISS）报告称，俄情报机构及其代理人正针对欧洲铁路、能源网络和军工企业实施破坏，以削弱对乌克兰的支持；过去12个月破坏活动增加16%，纵火和爆炸装置使用翻倍，部分“半熟练”人员已使用带定时和遥控引爆装置的简易爆炸物，误判空间收窄，存在大规模伤亡及随之而来的报复升级风险。报告称，各国逮捕代理人、驱逐情报人员等措施尚无明显遏制效果。",
+      "source": "The Guardian（IISS报告）",
+      "url": "https://www.theguardian.com/world/2026/nov/27/mass-casualty-event-europe-possible-russian-sabotage-says-thinktank",
+      "published_iso": "2026-11-27T22:46:27+08:00",
+      "published": "2026-11-27 22:46 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "serbia-student-list-presidential-candidate",
+      "category": "社会政治",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "塞议会选举获胜团体公布总统选举候选人",
+      "headline": "塞尔维亚议会选举获胜的“学生名单”提名化学教授萨伊契奇竞选总统，大选定于12月27日",
+      "summary": "界面新闻转载央视新闻，赢得国民议会250席中140席的“学生名单-学生获胜”27日宣布提名65岁的塞尔维亚科学与艺术院院士、贝尔格莱德大学化学教授拉多米尔·萨伊契奇为总统候选人。议长丘皮奇26日签署决定，定于12月27日提前举行总统选举；时任总统武契奇已于9月27日辞职。",
+      "source": "界面新闻（转载央视新闻）",
+      "url": "https://m.jiemian.com/article/15385415.html",
+      "published_iso": "2026-11-27T22:35:54+08:00",
+      "published": "2026-11-27 22:35 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "chile-fne-apple-fine",
+      "category": "理工科",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Chile's antitrust authority seeks $80 million Apple fine over iOS",
+      "headline": "智利反垄断机构请求对苹果罚款约8000万美元，指其滥用iOS市场支配地位",
+      "summary": "CNA转载路透社报道，智利国家经济检察署（FNE）27日请求反垄断法院对苹果处以约8000万美元罚款，称其至少自2019年起限制iOS应用分发和数字商品应用内支付竞争，阻止侧载和第三方应用商店；罚款相当于涉案产品线和服务在调查期间销售额的30%。FNE还要求法院责令苹果允许第三方应用商店、替代应用内计费及外部支付链接。苹果称相关限制出于安全和隐私考虑。",
+      "source": "CNA（转载路透社）",
+      "url": "https://www.channelnewsasia.com/business/chiles-antitrust-authority-seeks-80-million-apple-fine-over-ios-6588091",
+      "published_iso": "2026-11-27T22:33:33+08:00",
+      "published": "2026-11-27 22:33 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "japan-flu-50k-week",
+      "category": "其他",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "日本流感扩散，近九成地区报告病例数显著增加",
+      "headline": "日本流感连续5周上升：单周定点报告5.04万例创本季新高，北海道达“警报”级别，1777所学校停课",
+      "summary": "界面新闻转载央视新闻，日本厚生劳动省27日数据显示，11月16日至22日全国定点医疗机构报告流感5.04万例，平均每家13.51例，47个都道府县中42个呈扩散趋势；北海道已达“警报”级别，宫城、福岛接近警报线。今年8月中下旬即已进入流感季，截至22日共1777所保育园及中小学全面或部分停课。",
+      "source": "界面新闻（转载央视新闻）",
+      "url": "https://m.jiemian.com/article/15385355.html",
+      "published_iso": "2026-11-27T22:01:04+08:00",
+      "published": "2026-11-27 22:01 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "hamas-hayya-son-strike",
+      "category": "社会政治",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "哈马斯官员证实哈亚之子在以军空袭中幸存",
+      "headline": "以军空袭加沙城一公寓针对哈马斯领导人哈亚之子，哈马斯称其本人及家人幸存",
+      "summary": "界面新闻转载央视新闻，哈马斯高级官员纳伊姆27日证实，哈马斯领导人哈利勒·哈亚的儿子当天凌晨在加沙城里马尔社区一处公寓遭以军空袭，本人及家人均幸存；纳伊姆称此举是“国家恐怖主义”，只要以方此类行动不受追究，中东就无法实现真正安全稳定。",
+      "source": "界面新闻（转载央视新闻）",
+      "url": "https://m.jiemian.com/article/15385327.html",
+      "published_iso": "2026-11-27T21:41:23+08:00",
+      "published": "2026-11-27 21:41 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "zffr-fusion-fission-heating-reactor",
+      "category": "理工科",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "中国有望建成全球首个核聚变能源工程供热示范堆先导堆型",
+      "headline": "Z箍缩聚变裂变混合堆供热示范堆工程倡议公布：2030年前完成聚变点火验证，2031—2035年建示范堆",
+      "summary": "中新网报道，成都召开的ZFFR-Dt工程专家会透露，工程拟分两阶段：2026—2030年依托计划2030年在四川天府新区建成的50MA电磁驱动聚变大科学装置完成聚变点火及核心工艺验证；2031—2035年建造设计聚变功率200兆瓦、热功率大于2000兆瓦的示范堆，有望成为全球首个核聚变能源工程供热示范堆先导堆型。目前仍为工程倡议与初步规划。",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/cj/2026/11-27/10739040.shtml",
+      "published": "2026-11-27 21:41 UTC+8",
+      "published_iso": "2026-11-27T21:41:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "norse-atlantic-bankruptcy",
+      "category": "其他",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Norse Atlantic Airways files for bankruptcy after failing to secure funding",
+      "headline": "挪威廉价跨大西洋航司Norse Atlantic申请破产，称燃油成本飙升、未能获得足够资金",
+      "summary": "CNBC报道，Norse Atlantic Airways董事会已向阿格德尔地区法院提交破产申请，母公司称已无继续运营的基础；CEO罗尔德向旅客、员工和合作伙伴致歉，称上市母公司及英国子公司正寻求让其余业务继续运营。该公司股价周三已暴跌85%。",
+      "source": "CNBC",
+      "url": "https://www.cnbc.com/2026/11/27/norse-atlantic-bankruptcy-fuel-costs.html",
+      "published": "2026-11-27 21:27 UTC+8",
+      "published_iso": "2026-11-27T21:27:40+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "pboc-large-cd-threshold-halved",
+      "category": "其他",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "中国央行将大额存单认购起点金额下调一半",
+      "headline": "央行发布《大额存单管理办法》：个人认购起点由20万元降至10万元，机构由1000万元降至500万元",
+      "summary": "中新社报道，办法同时明确第三方平台和银行自有渠道均可开展大额存单转让、提前支取和赎回。央行数据显示，截至2025年末具备发行资格的金融机构1536家，大额存单余额31.7万亿元，占人民币存款余额10.8%。",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/cj/2026/11-27/10739059.shtml",
+      "published": "2026-11-27 21:15 UTC+8",
+      "published_iso": "2026-11-27T21:15:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "poland-palantir-300m",
+      "category": "理工科",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Poland signs contract with Palantir worth $300 million over 5 years",
+      "headline": "波兰与Palantir签约，5年约3亿美元采购AI指挥决策软件",
+      "summary": "CNA转载路透社报道，波兰国防部长科西尼亚克-卡米什27日签署协议，向Palantir采购用于辅助军队指挥官决策的人工智能软件，5年合同价值约3亿美元。他称这是波兰武装部队作战能力的“分水岭时刻”，并表示所有密钥、服务器和信息都将归波兰军方所有。波兰与Palantir于2025年签署合作备忘录。",
+      "source": "CNA（转载路透社）",
+      "url": "https://www.channelnewsasia.com/business/poland-signs-contract-palantir-worth-300-million-over-5-years-6587816",
+      "published_iso": "2026-11-27T21:08:00+08:00",
+      "published": "2026-11-27 21:08 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "yaogan-50-04-launch",
+      "category": "理工科",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "我国成功发射遥感五十号04星",
+      "headline": "长征六号改火箭在太原成功发射遥感五十号04星，用于国土普查、农作物估产和防灾减灾",
+      "summary": "中新网报道，北京时间11月27日21时05分，我国在太原卫星发射中心使用长征六号改运载火箭成功将遥感五十号04星发射升空，卫星顺利进入预定轨道，发射任务取得圆满成功。",
+      "source": "中国新闻网；另见IT之家（援引央视新闻）",
+      "url": "https://www.chinanews.com.cn/gn/2026/11-27/10739061.shtml",
+      "published": "2026-11-27 21:05 UTC+8",
+      "published_iso": "2026-11-27T21:05:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "italy-school-decree-foreign-cap",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "No burqas at school and fewer foreign pupils: Italy passes controversial education law",
+      "headline": "意大利议会通过争议教育法：校园禁止蒙面，一年级外国背景学生比例设30%上限",
+      "summary": "欧洲新闻台报道，意大利众议院以142票赞成、112票反对、4票弃权最终通过“学校法令”（参议院已于11月20日通过）：校内禁止遮脸，布卡和尼卡布将不得进入课堂；一年级班级外国背景学生比例上限30%，已具备足够意大利语水平者不受限；另为外国家长开设意大利语课程。反对党指责其歧视。",
+      "source": "Euronews",
+      "url": "https://www.euronews.com/2026/11/27/no-burqas-at-school-and-fewer-foreign-pupils-italy-passes-controversial-education-law",
+      "published": "2026-11-27 20:52 UTC+8",
+      "published_iso": "2026-11-27T20:52:44+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "octopus-cyberattack-hk",
+      "category": "理工科",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "八達通系統遭網絡攻擊　涉約7500客戶及2.2萬商戶資料",
+      "headline": "香港八达通系统遭网络攻击，约7500名客户及2.2万商户资料受影响，称暂未发现财务损失",
+      "summary": "香港电台及八达通官方新闻稿称，八达通27日早上侦测到系统遭网络攻击，涉及约7500名客户的姓名和相片，部分或涉及自动增值服务的银行编号及增值金额，但不涉信用卡或银行账户资料；约2.2万名商户的联系人姓名、职位、电邮及电话亦受影响。八达通主要服务运作如常，暂未发现客户蒙受财务损失，少数功能或暂受影响；个人资料私隐专员公署已接获通报并展开循规审查。",
+      "source": "香港电台（RTHK）；八达通官方新闻稿；另见香港经济日报",
+      "url": "https://news.rthk.hk/rthk/ch/component/k2/1879531-20261127.htm",
+      "published_iso": "2026-11-27T20:34:00+08:00",
+      "published": "2026-11-27 20:34 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "canada-petition-expel-us-ambassador",
+      "category": "社会政治",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "加拿大近30万民众联名请愿要求驱逐美国大使",
+      "headline": "近29万加拿大人联署请愿要求驱逐美国驻加大使胡克斯特拉，已提交众议院",
+      "summary": "中新社报道，编号e-7531的请愿书获285993个实名签名，由绿党领袖伊丽莎白·梅26日提交众议院，联邦政府须在45天内正式回应；请愿书指胡克斯特拉多次发表损害两国关系言论、将“第51州”说法正常化。美使馆拒绝置评。",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/gj/2026/11-27/10738967.shtml",
+      "published": "2026-11-27 20:24 UTC+8",
+      "published_iso": "2026-11-27T20:24:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "saudi-strike-taiz-yemen",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Saudi strike kills '11 civilians' in Yemen's Taiz: Houthi media",
+      "headline": "胡塞武装媒体称沙特空袭也门塔伊兹省致11名平民死亡，多为儿童",
+      "summary": "半岛电视台援引法新社及胡塞武装相关媒体报道，空袭击中塔伊兹以南图尔巴市一栋民宅，已寻获8具遗体、3人仍被埋；半岛电视台称无法独立核实，沙特领导的联军未立即置评，联军随后称摧毁一架飞向利雅得的胡塞无人机。",
+      "source": "Al Jazeera / AFP（援引胡塞武装媒体）",
+      "url": "https://www.aljazeera.com/news/2026/11/27/saudi-strike-kills-11-civilians-in-yemens-taiz-houthi-media",
+      "published": "2026-11-27 20:00 UTC+8",
+      "published_iso": "2026-11-27T20:00:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "jdg-xiaobai-coach-leaves",
+      "category": "游戏",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "JDG发布人员变动公告：教练Xiaobai即日起离队",
+      "headline": "JDG官宣教练Xiaobai（杨忠贺）卸任离队，当晚已有四名选手一名教练告别",
+      "summary": "虎扑转载JDG公告：经双方友好协商，JDG英雄联盟分部教练杨忠贺（Xiaobai）即日起卸任教练一职。此前当晚JDG已先后官宣GALA、HongQ、JunJia、xiaofang四名选手离队，新赛季阵容待官方公布。",
+      "source": "JDG官方微博",
+      "url": "https://weibo.com/6174976862/RtlGtcTzT",
+      "published": "2026-11-27 19:30 UTC+8",
+      "published_iso": "2026-11-27T19:30:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "amnesty-gaza-women-report",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Israeli attacks on women and girls meant 'to destroy life' in Gaza: Amnesty",
+      "headline": "国际特赦组织报告：以色列系统性针对加沙妇女和女童，意在“阻止生育”",
+      "summary": "半岛电视台报道，国际特赦组织新报告称自2023年10月以来以军平均每天在加沙杀害约30名妇女和女童，封锁导致更多女性死亡；报告认定杀戮、强迫流离、饥饿和医疗中断构成阻止巴勒斯坦人口增长的种族灭绝策略。",
+      "source": "Al Jazeera（国际特赦组织报告）",
+      "url": "https://www.aljazeera.com/news/2026/11/27/israeli-attacks-on-women-and-girls-meant-to-destroy-life-in-gaza-amnesty",
+      "published": "2026-11-27 19:15 UTC+8",
+      "published_iso": "2026-11-27T19:15:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "shandong-infra-defect-accountability",
+      "category": "社会政治",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "山东通报基建项目底座缺陷调查结果：问题属实，追责17人",
+      "headline": "山东通报山东高速信息集团新基建项目监测设备底座质量缺陷：问题属实，6家单位17人被追责",
+      "summary": "据中新网转央视新闻，山东省联合调查组查明济潍高速等沿线5000套监测设备项目部分混凝土底座强度不足，存在违法分包、监理和检测流于形式等问题；纪检监察部门对6家责任单位、17名责任人追责问责。",
+      "source": "中国新闻网（央视新闻客户端，“山东发改”通报）",
+      "url": "https://www.chinanews.com.cn/sh/2026/11-27/10738957.shtml",
+      "published": "2026-11-27 19:13 UTC+8",
+      "published_iso": "2026-11-27T19:13:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "pboc-deposit-loan-rate-rules",
+      "category": "其他",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "央行发布人民币存贷款利率管理新规：不再对罚息利率区间进行具体规定",
+      "headline": "央行发布《人民币存贷款利率管理规定》，2027年3月21日起施行，不再规定贷款罚息加收30%-50%区间",
+      "summary": "中新网报道，新规已于10月30日经人民银行行务会审议通过，设约4个月过渡期；罚息利率改由金融机构与借款人协商确定，央行预计罚息利率总体将有所下行。官网、手机银行公告的存款利率与网点挂牌利率具有同等法律效力。",
+      "source": "中国新闻网（中国人民银行答记者问）",
+      "url": "https://www.chinanews.com.cn/cj/2026/11-27/10738946.shtml",
+      "published": "2026-11-27 18:53 UTC+8",
+      "published_iso": "2026-11-27T18:53:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "wbg-coaches-shine-tselin-leave",
+      "category": "游戏",
+      "lang": "zh-Hans",
+      "heat": 3,
+      "headline_original": "WBG发布人员变动公告：Shine、Tselin教练即日起离队",
+      "headline": "WBG再官宣主教练Shine（申东煜）、教练Tselin（赵泽霖）解约离队，一天内七人告别",
+      "summary": "虎扑转载WBG英雄联盟分部公告，主教练申东煜（Shine）与教练赵泽霖（Tselin）经友好协商解除合约、即日起卸任；Shine于2025年末加盟，Tselin自2022年起在队、曾随队打进S13总决赛。WBG当天此前已官宣Elk、Zika、Xiaohao、Moham、Jwei五名选手离队。",
+      "source": "直播吧（转载WBG官方公告）",
+      "url": "https://news.zhibo8.com/game/2026-11-27/6b095e4b210c5native.htm",
+      "published": "2026-11-27 18:50 UTC+8",
+      "published_iso": "2026-11-27T18:50:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "korea-e9pay-hack",
+      "category": "理工科",
+      "lang": "ko",
+      "heat": 3,
+      "headline_original": "국내 송금업체 해킹으로 25억원 피해…금감원 현장점검 착수",
+      "headline": "韩国海外汇款企业E9Pay遭约90次黑客攻击、据悉被盗约25亿韩元，金融监督院现场检查",
+      "summary": "韩联社报道，韩国金融监督院27日派检查组进驻E9Pay（이나인페이），核查损失规模与事故经过。据悉该公司遭90余次攻击、约25亿韩元资金被盗，为近期韩国金融业一连串黑客事件中金额最大的一起；当局称确切金额仍在核实。",
+      "source": "韩联社",
+      "url": "https://www.yna.co.kr/view/AKR20261127162500002",
+      "published": "2026-11-27 18:48 UTC+8",
+      "published_iso": "2026-11-27T18:48:58+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "uganda-lubero-withdrawal",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Uganda to withdraw troops from DR Congo town amid diplomatic row",
+      "headline": "乌干达宣布两周内从刚果（金）卢贝罗撤军，两国外交摩擦升级",
+      "summary": "BBC报道，乌干达军方声明将在两周内把北基伍省卢贝罗镇的安全防务移交刚果（金）军队，结束近两年针对“民主同盟军”（ADF）的军事行动。此前几天，刚果（金）因乌军总司令、总统之子穆霍齐的社交媒体言论召见乌干达外交官；乌方未说明撤军原因。",
+      "source": "BBC News",
+      "url": "https://www.bbc.co.uk/news/articles/cq4gnj2ldkyzo",
+      "published": "2026-11-27 18:39 UTC+8",
+      "published_iso": "2026-11-27T18:39:31+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "australia-sanctions-irgc-arson",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Australia sanctions suspects in Iran-linked anti-Semitic attacks",
+      "headline": "澳大利亚对两名涉受伊朗革命卫队指使策划反犹纵火袭击的男子实施反恐融资制裁",
+      "summary": "半岛电视台（综合法新社、路透）报道，澳外长黄英贤宣布制裁Zohair Hassib和Kazem Hamad，两人被指通过“复杂的代理链”在2024年为伊斯兰革命卫队策划袭击悉尼一家犹太餐厅和墨尔本阿达斯以色列犹太会堂；制裁使向其提供资产成为刑事犯罪。",
+      "source": "Al Jazeera（法新社、路透）",
+      "url": "https://www.aljazeera.com/news/2026/11/27/australia-sanctions-suspects-in-iran-linked-anti-semitic-attacks",
+      "published": "2026-11-27 18:31 UTC+8",
+      "published_iso": "2026-11-27T18:31:20+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "approx",
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "t1-redbull-loio-rekkles-untara",
+      "category": "游戏",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Rekkles and Untara will play for T1 at Red Bull League of Its Own 2026",
+      "headline": "Rekkles与Untara将代表T1出战12月5日巴塞罗那红牛表演赛，替代Zeus和Keria",
+      "summary": "Sheep Esports报道，据红牛声明，Zeus与Keria因事先安排的个人行程无法参加，T1将以Untara、Oner、Faker、Rekkles、Peyz阵容出战12月5日在西班牙巴塞罗那举行的Red Bull League of Its Own 2026；Zeus回归后的首秀将推迟到2027赛季。",
+      "source": "Sheep Esports（援引红牛声明）",
+      "url": "https://www.sheepesports.com/en/articles/untara-and-rekkles-will-play-for-t1-at-red-bull-league-of-its-own-2026/en",
+      "published": "2026-11-27 傍晚 UTC+8（来源标注11:27）",
+      "published_iso": "2026-11-27T18:27:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "rheinmetall-cmd-2030-guidance",
+      "category": "其他",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Rheinmetall stock rises as defense giant vows more cautious approach",
+      "headline": "莱茵金属资本市场日下调2030年销售目标至330亿—370亿欧元（原约450亿），股价反涨3.4%",
+      "summary": "CNBC报道，德国军工巨头莱茵金属称对车辆系统及武器弹药业务采取“更审慎”的规划，已计入新产能和项目延误；此前德国取消了F126护卫舰大单。欧洲防务板块普涨，其股价上午涨3.4%。",
+      "source": "CNBC",
+      "url": "https://www.cnbc.com/2026/11/27/rheinmetall-stock-cmd-guidance-sales.html",
+      "published": "2026-11-27 18:11 UTC+8",
+      "published_iso": "2026-11-27T18:11:09+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "india-noida-cyberfraud-rescue",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "India busts cyberfraud and trafficking network rescuing 164 foreigners",
+      "headline": "印度警方在德里郊区诺伊达捣毁跨国电诈和人口贩卖团伙，解救92名印尼人和72名马来西亚人",
+      "summary": "BBC报道，受害者以高薪IT工作为诱饵被骗至印度，护照遭没收，被迫假扮女性引诱他人投资虚假平台；一名马来西亚工人逃出后揭发。警方已逮捕一名马来西亚籍嫌犯，查扣近550台电脑和手机。",
+      "source": "BBC News",
+      "url": "https://www.bbc.co.uk/news/articles/crkgvjy7q83wo",
+      "published": "2026-11-27 18:01 UTC+8",
+      "published_iso": "2026-11-27T18:01:07+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "taiwan-gdp-2026-1328",
+      "category": "其他",
+      "lang": "ko",
+      "heat": 3,
+      "headline_original": "대만, AI붐에 올해 성장전망 13.28%로 상향…48년 만에 최고",
+      "headline": "台湾主计总处将今年经济增长预测上调至13.28%，若实现将是1978年以来最高",
+      "summary": "韩联社援引台湾“中央社”和路透报道，台湾主计总处27日将2026年GDP增长预测由8月的11.05%上调至13.28%，若实现将是1978年（13.56%）以来最高，台积电等半导体业受AI需求带动是主因；2027年增长预测由6.04%上调至6.51%。",
+      "source": "韩联社（援引中央社、路透）",
+      "url": "https://www.yna.co.kr/view/AKR20261127159000089",
+      "published": "2026-11-27 17:56 UTC+8",
+      "published_iso": "2026-11-27T17:56:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "uk-ai-agent-cardless-pizza",
+      "category": "理工科",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Pizza history: AI agent’s cardless purchase is a first for UK",
+      "headline": "英国首例：AI智能体在金融行为监管局沙盒中以无卡“账户对账户”支付买下棒约翰披萨",
+      "summary": "《卫报》报道，这笔9个迷你玛格丽特披萨的订单通过棒约翰的AI智能体下单，在英国金融行为监管局（FCA）监管沙盒试验中由劳埃德银行和支付公司TrueLayer完成。TrueLayer称这是AI智能体首次为真实客户向英国零售商付款，全程不涉及账号和密码。",
+      "source": "The Guardian",
+      "url": "https://www.theguardian.com/business/2026/nov/27/ai-agent-cardless-transaction-pizza-papa-john-uk-fca-truelayer",
+      "published": "2026-11-27 17:53 UTC+8",
+      "published_iso": "2026-11-27T17:53:11+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "marvelous-voluntary-redundancy",
+      "category": "游戏",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Marvelous, developer of the Story of Seasons series, opens up voluntary redundancy scheme as it seeks to reduce headcount by 65 employees",
+      "headline": "《牧场物语》开发商Marvelous推出“提前退休”自愿离职计划，拟裁减65人",
+      "summary": "Eurogamer援引Automaton报道，Marvelous为重组主机游戏业务推出自愿离职计划，目标削减65个岗位，申请者将于2027年3月财年末离职并获额外补偿；公司称开发规模扩大、周期拉长是原因，但仍视主机游戏为核心业务。该公司2026年4—9月利润同比增长1105%。",
+      "source": "Eurogamer（援引Automaton）",
+      "url": "https://www.eurogamer.net/marvelous-developer-volentary-redundancy-amidst-console-business-restructuring",
+      "published": "2026-11-27 17:52 UTC+8",
+      "published_iso": "2026-11-27T17:52:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "google-play-dev-address-public",
+      "category": "理工科",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Google will soon share Android developers' addresses publicly",
+      "headline": "谷歌将自2027年3月1日起在全球公开展示“商户”类安卓开发者的电话和地址，独立开发者批评侵犯隐私",
+      "summary": "Engadget援引韩国The Elec报道，按英国法律及欧盟《数字服务法》要求，靠应用持续盈利的开发者须在2027年2月1日前申报为“商户”并提交商业身份、电话和地址，谷歌将向全球用户展示；不合规者更新可能被拦截、应用甚至被下架。谷歌不接受邮政信箱地址，在家开发的小团队称这等同公开住址。",
+      "source": "Engadget（援引The Elec）",
+      "url": "https://www.engadget.com/2329389/google-will-soon-share-android-developers-addresses-publicly/",
+      "published": "2026-11-27 17:38 UTC+8",
+      "published_iso": "2026-11-27T17:38:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "newzoo-oct-cod-hq-top-pc",
+      "category": "游戏",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Modern Warfare 4 launch boosts Call of Duty HQ to top of Newzoo's PC revenue charts",
+      "headline": "Newzoo 10月榜：《现代战争4》发售带动“使命召唤HQ”登顶欧美PC收入榜，《英雄联盟》列第5",
+      "summary": "GamesIndustry.biz独家获得的Newzoo数据显示（美英德法西意六国），10月PC收入榜依次为使命召唤HQ、《堡垒之夜》、《EA Sports FC 27》、《无畏契约》、《英雄联盟》；主机榜《FC 27》连续第二个月居首。《影之刃零》分列PC第18、主机第8，《赛博朋克2077》因更新回升至PC第13。",
+      "source": "GamesIndustry.biz（Newzoo数据）",
+      "url": "https://www.gamesindustry.biz/modern-warfare-4-launch-boosts-call-of-duty-hq-to-top-of-newzoos-pc-charts",
+      "published": "2026-11-27 17:24 UTC+8",
+      "published_iso": "2026-11-27T17:24:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "fao-wfp-hunger-hotspots",
+      "category": "社会政治",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Conflicts, El Nino worsening hunger: UN food agencies",
+      "headline": "联合国粮农组织与世界粮食计划署预警：未来半年16个“饥饿热点”恶化，苏丹、南苏丹存在饥荒风险",
+      "summary": "据海峡时报转载法新社，粮农组织与粮食署联合报告将苏丹、南苏丹、索马里、尼日利亚北部和也门列为最高关注；苏丹北达尔富尔等地饥荒仍“有可能”。报告估计2026年强厄尔尼诺可能到2027年底再使约4900万人陷入严重粮食不安全，而五个最高风险国家的人道援助在2022—2025年间从51亿美元降至20亿美元。",
+      "source": "The Straits Times（法新社）",
+      "url": "https://www.straitstimes.com/world/europe/un-warns-famine-risks-rising-as-hunger-hotspots-increase",
+      "published": "2026-11-27 17:06 UTC+8",
+      "published_iso": "2026-11-27T17:06:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "paraparticles-quantum-simulator",
+      "category": "理工科",
+      "lang": "en",
+      "heat": 3,
+      "headline_original": "Particles not seen before have been observed in a quantum simulator",
+      "headline": "《新科学人》：MIT团队在16量子比特量子模拟器中首次观测到“仲粒子”（paraparticles）涌现信号",
+      "summary": "《新科学人》报道，麻省理工学院Max Hays等人在一个含16个量子比特的量子模拟器中看到了仲粒子的信号——这类既非玻色子也非费米子的粒子在1950年代就被理论提出，但长期被认为无法在实验上区分；2025年莱斯大学Hazzard与圆周研究所王志远的数学工作为实验探测铺路。",
+      "source": "New Scientist",
+      "url": "https://www.newscientist.com/article/2600979-particles-not-seen-before-have-been-observed-in-a-quantum-simulator/",
+      "published": "2026-11-27 17:00 UTC+8",
+      "published_iso": "2026-11-27T17:00:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": "英雄联盟",
+      "id": "lck-2027-rosters-gamevu",
+      "category": "游戏",
+      "lang": "ko",
+      "heat": 3,
+      "headline_original": "제우스 T1 복귀…상위 4팀 탑 연쇄 이동, DK서 그리핀 재회",
+      "headline": "韩媒盘点LCK转会期：前四名战队上单全部换人，10队中7队已凑齐首发五人",
+      "summary": "韩国GameVu梳理称，截至27日LCK十队中已有七队确定一线五个位置：Zeus回归T1、Kiin加盟韩华生命、Doran转投DK、Siwoo加入Gen.G；Deft退伍后与Kingen、Pyosik重聚农心；Kiwoom DRX尚未公布新主教练与一线引援。",
+      "source": "GameVu（게임뷰）",
+      "url": "https://www.gamevu.co.kr/news/articleView.html?idxno=62637",
+      "published": "2026-11-27 13:48 UTC+8",
+      "published_iso": "2026-11-27T13:48:00+08:00"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "aiib-hong-kong-office",
+      "category": "其他",
+      "lang": "zh-Hans",
+      "heat": 2,
+      "headline_original": "許正宇稱亞投行落戶香港意義大　當局與亞投行商討細節涉法律修訂",
+      "headline": "港府：财政部与亚投行签协定在港设办公室，当局正商讨细节并需修法；港股T+1拟2028年落实",
+      "summary": "香港电台报道，国家财政部与亚洲基础设施投资银行日前签署协定，确定亚投行在香港开设办公室。财经事务及库务局局长许正宇称这将是亚投行境外功能较齐全的办公室，当局正与亚投行商讨细节，涉及修订法律给予其多边组织特别权利；他还表示港交所年底前将公布人民币黄金期货详情，股票现货市场结算周期缩短至T+1方向是2028年底或下半年落实。",
+      "source": "香港电台（RTHK）",
+      "url": "https://news.rthk.hk/rthk/ch/component/k2/1879578-20261128.htm",
+      "published_iso": "2026-11-28T10:37:00+08:00",
+      "published": "2026-11-28 10:37 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "windows-12-no-timeline",
+      "category": "理工科",
+      "lang": "zh-Hans",
+      "heat": 2,
+      "headline_original": "微软高管：暂无 Win12 发布时间表，当前首要任务是打磨 Win11",
+      "headline": "微软Windows负责人达武卢里：Windows 12暂无时间表，当前首要任务是打磨Win11",
+      "summary": "IT之家援引Axios采访报道，微软Windows事业部执行副总裁帕万·达武卢里被问及Windows 12时未否认也未给出时间表，称微软需先构建未来AI应用所需技术并证明用户认可其价值，才能“赢得许可”推进下一代系统；他表示Windows 11用户已超10亿，并预计100亿至200亿参数的本地AI模型将为PC带来更多功能。",
+      "source": "IT之家（援引Axios）",
+      "url": "https://www.ithome.com/1/033/812.htm",
+      "published_iso": "2026-11-28T10:27:00+08:00",
+      "published": "2026-11-28 10:27 UTC+8"
+    },
+    {
+      "headline_original_verified": true,
+      "time_precision": "minute",
+      "breaking": false,
+      "focus": null,
+      "id": "japan-political-fund-party-income",
+      "category": "社会政治",
+      "lang": "ko",
+      "heat": 2,
+      "headline_original": "지난해 日 '정치자금 파티' 수입 다시 급증…전년보다 37% 증가",
+      "headline": "日本总务省：去年政治资金募款宴会收入63.49亿日元，同比增37.3%，“黑金丑闻”后再度回升",
+      "summary": "韩联社援引《读卖新闻》报道，日本总务省27日公布去年政治资金收支报告，政治资金募款宴会收入总额63.49亿日元，同比增37.3%，与自民党派阀黑金丑闻后2024年骤降46.7%形成对比；收入1000万日元以上的“特定宴会”233场、增63场。另据报道，文部科学大臣关芳弘邀请官员出席募款宴会引发争议，在野党提出的问责决议案27日在参议院以4票之差被否决。",
+      "source": "韩联社（援引读卖新闻）",
+      "url": "https://www.yna.co.kr/view/AKR20261128026300073",
+      "published_iso": "2026-11-28T10:19:00+08:00",
+      "published": "2026-11-28 10:19 UTC+8"
+    }
+  ],
+  "edition_label": "2026-11-28 11:00 版",
+  "edition_no_label": "第12期",
+  "edition_slug": "20261128-11",
+  "edition_no": 12
+}
+  </script>
+  <script>
+    (function () {
+      var STORAGE_THEME = "zhengdian-dianxun-theme";
+      var STORAGE_WATCH = "zhengdian-dianxun-watch";
+      var root = document.documentElement;
+      var toggle = document.getElementById("theme-toggle");
+
+      function systemTheme() {
+        return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      function applyTheme(theme) {
+        root.setAttribute("data-theme", theme);
+        toggle.textContent = theme === "dark" ? "切换浅色模式" : "切换深色模式";
+      }
+      var saved = localStorage.getItem(STORAGE_THEME);
+      applyTheme(saved === "dark" || saved === "light" ? saved : systemTheme());
+      toggle.addEventListener("click", function () {
+        var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        localStorage.setItem(STORAGE_THEME, next);
+        applyTheme(next);
+      });
+      if (window.matchMedia) {
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+          if (!localStorage.getItem(STORAGE_THEME)) applyTheme(e.matches ? "dark" : "light");
+        });
+      }
+
+      var raw = document.getElementById("news-data").textContent;
+      var data = JSON.parse(raw);
+      var stories = data.stories || [];
+      var refreshSeconds = Number(data.refresh_seconds || 600);
+      document.getElementById("updated-label").textContent = data.updated || "";
+      document.getElementById("edition-label").textContent = data.edition_label || "";
+      document.getElementById("edition-no").textContent = data.edition_no_label || "";
+
+      var deadline = Date.now() + refreshSeconds * 1000;
+      var countEl = document.getElementById("countdown");
+      function tick() {
+        var left = Math.max(0, Math.floor((deadline - Date.now()) / 1000));
+        var m = String(Math.floor(left / 60)).padStart(2, "0");
+        var s = String(left % 60).padStart(2, "0");
+        countEl.textContent = m + ":" + s;
+      }
+      tick();
+      setInterval(tick, 1000);
+
+      function loadWatch() {
+        try {
+          var arr = JSON.parse(localStorage.getItem(STORAGE_WATCH) || "[]");
+          return Array.isArray(arr) ? arr : [];
+        } catch (e) { return []; }
+      }
+      function saveWatch(ids) {
+        localStorage.setItem(STORAGE_WATCH, JSON.stringify(ids));
+      }
+      var watched = loadWatch();
+
+      var categories = ["我的关注", "全部", "理工科", "社会政治", "游戏", "其他"];
+      var currentCat = "全部";
+      var currentSort = "heat";
+      var tabs = document.getElementById("tabs");
+      var wire = document.getElementById("wire");
+
+      function isChinese(text) {
+        var s = String(text || "");
+        var cjk = (s.match(/[\u4e00-\u9fff]/g) || []).length;
+        var letters = (s.match(/[A-Za-z\u4e00-\u9fff]/g) || []).length;
+        return letters > 0 && (cjk / letters) >= 0.45;
+      }
+      function originalOf(s) {
+        return (s.headline_original && String(s.headline_original).trim()) || s.headline || "";
+      }
+      function showZhLine(s) {
+        var orig = originalOf(s);
+        var zh = s.headline || "";
+        if (!zh) return false;
+        if (orig.replace(/\s+/g, "") === zh.replace(/\s+/g, "")) return false;
+        if (isChinese(orig)) return false;
+        var lang = String(s.lang || "").toLowerCase();
+        if (lang.indexOf("zh") === 0) return false;
+        return true;
+      }
+      function countCat(cat) {
+        if (cat === "全部") return stories.length;
+        if (cat === "我的关注") return stories.filter(function (s) { return !!s.focus || watched.indexOf(s.id) >= 0; }).length;
+        return stories.filter(function (s) { return s.category === cat; }).length;
+      }
+      function sortKey(story) {
+        var iso = story.published_iso || story.published || "";
+        var t;
+        if (story.time_precision === "date") {
+          t = Date.parse(String(iso).slice(0, 10) + "T23:59:59+08:00");
+        } else {
+          t = Date.parse(iso);
+        }
+        if (isNaN(t)) t = 0;
+        if (currentSort === "time") return -t;
+        return (-Number(story.heat || 0) * 1e15) - t;
+      }
+      function escapeHtml(s) {
+        return String(s == null ? "" : s)
+          .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+      }
+      function heatMarks(n) {
+        n = Number(n || 0);
+        var s = "";
+        for (var i = 1; i <= 5; i++) s += i <= n ? "●" : "○";
+        return s + " " + n;
+      }
+      function shortTime(story) {
+        var iso = story.published_iso || "";
+        var d = Date.parse(iso);
+        if (!isNaN(d)) {
+          var dt = new Date(d);
+          var pad = function (x) { return String(x).padStart(2, "0"); };
+          // format in UTC+8
+          var utc = d + (dt.getTimezoneOffset() * 60000);
+          var cst = new Date(utc + 8 * 3600000);
+          if (story.time_precision === "date") {
+            return pad(cst.getMonth() + 1) + "/" + pad(cst.getDate());
+          }
+          return pad(cst.getMonth() + 1) + "/" + pad(cst.getDate()) + " " + pad(cst.getHours()) + ":" + pad(cst.getMinutes());
+        }
+        return story.published || "";
+      }
+      function visibleStories() {
+        var list = stories.filter(function (s) {
+          if (currentCat === "全部") return true;
+          if (currentCat === "我的关注") return !!s.focus || watched.indexOf(s.id) >= 0;
+          return s.category === currentCat;
+        }).slice();
+        list.sort(function (a, b) {
+          var d = sortKey(a) - sortKey(b);
+          if (d) return d;
+          return String(b.published_iso || "").localeCompare(String(a.published_iso || ""));
+        });
+        return list;
+      }
+      function renderTabs() {
+        tabs.innerHTML = categories.map(function (cat) {
+          return '<button class="tab" type="button" role="tab" data-cat="' + cat +
+            '" aria-selected="' + (cat === currentCat) + '">' + cat +
+            '<span class="n">' + countCat(cat) + "</span></button>";
+        }).join("");
+      }
+      function renderFlash() {
+        var box = document.getElementById("flash");
+        var list = document.getElementById("flash-list");
+        var items = stories.filter(function (s) { return s.breaking; }).slice()
+          .sort(function (a, b) { return sortKey(a) - sortKey(b); });
+        if (!items.length) { box.hidden = true; return; }
+        box.hidden = false;
+        list.innerHTML = items.map(function (s) {
+          var orig = originalOf(s);
+          var zh = showZhLine(s) ? '<div class="zh">' + escapeHtml(s.headline) + "</div>" : "";
+          return "<li><a href=\"" + escapeHtml(s.url) + "\" target=\"_blank\" rel=\"noopener noreferrer\">" +
+            "<div class=\"oh\">" + escapeHtml(orig) + "</div>" + zh +
+            "<div class=\"bm\">" + escapeHtml(s.source || "") + " · " + escapeHtml(s.published || "") +
+            "</div></a></li>";
+        }).join("");
+      }
+      function renderWire() {
+        var list = visibleStories();
+        if (!list.length) {
+          wire.innerHTML = currentCat === "我的关注"
+            ? '<p class="empty-hint">尚未关注任何电讯。点击条目右侧星标，将其加入本机关注列表。</p>'
+            : "";
+          return;
+        }
+        wire.innerHTML = list.map(function (s) {
+          var orig = originalOf(s);
+          var zh = showZhLine(s) ? '<p class="zh">' + escapeHtml(s.headline) + "</p>" : "";
+          var on = watched.indexOf(s.id) >= 0;
+          return '<article class="dispatch" data-id="' + escapeHtml(s.id) + '">' +
+            '<div class="stamp">' + escapeHtml(shortTime(s)) + "</div>" +
+            '<div class="body">' +
+            '<div class="row-meta"><span class="cat">' + escapeHtml(s.category || "") +
+            '</span>' + (s.breaking ? '<span class="flag-breaking">突发</span>' : '') +
+            '<span class="heat" title="热度">' + heatMarks(s.heat) + "</span></div>" +
+            '<h2 class="oh"><a href="' + escapeHtml(s.url) + '" target="_blank" rel="noopener noreferrer">' +
+            escapeHtml(orig) + "</a></h2>" + zh +
+            '<p class="sum">' + escapeHtml(s.summary || "") + "</p>" +
+            '<p class="src">' + escapeHtml(s.source || "") + " · " + escapeHtml(s.published || "") + "</p>" +
+            "</div>" +
+            '<button class="watch-btn" type="button" aria-pressed="' + on + '" aria-label="关注" title="关注">' +
+            (on ? "★" : "☆") + "</button></article>";
+        }).join("");
+      }
+      tabs.addEventListener("click", function (e) {
+        var btn = e.target.closest(".tab");
+        if (!btn) return;
+        currentCat = btn.getAttribute("data-cat");
+        renderTabs();
+        renderWire();
+      });
+      document.querySelector(".sorts").addEventListener("click", function (e) {
+        var btn = e.target.closest(".sort");
+        if (!btn) return;
+        currentSort = btn.getAttribute("data-sort");
+        document.querySelectorAll(".sort").forEach(function (b) {
+          b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+        });
+        renderFlash();
+        renderWire();
+      });
+      wire.addEventListener("click", function (e) {
+        var btn = e.target.closest(".watch-btn");
+        if (!btn) return;
+        var art = btn.closest(".dispatch");
+        if (!art) return;
+        var id = art.getAttribute("data-id");
+        var i = watched.indexOf(id);
+        if (i >= 0) watched.splice(i, 1);
+        else watched.push(id);
+        saveWatch(watched);
+        renderTabs();
+        renderWire();
+      });
+      renderTabs();
+      renderFlash();
+      renderWire();
+    })();
+  </script>
+</body>
+</html>
